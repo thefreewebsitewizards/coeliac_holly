@@ -1,0 +1,2594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>_scottishquine | Digital Travel Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --pastel-pink: #FADADD;
+            --soft-teal: #A0DED6;
+            --warm-beige: #FFF8F2;
+            --sunset-coral: #FF8C94;
+            --dusty-lavender: #D8BFD8;
+            --graphite-gray: #444444;
+            --snow-white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+            color: var(--graphite-gray);
+            background: var(--warm-beige);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .handwritten {
+            font-family: 'Caveat', cursive;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 107, 157, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+            padding: 0.8rem 2rem;
+        }
+
+        .brand {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+            margin-left: 3rem;
+        }
+
+        .brand::before {
+            content: '✨';
+            position: absolute;
+            left: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .brand:hover::before {
+            opacity: 1;
+            left: -30px;
+            animation: sparkle 1s ease-in-out infinite alternate;
+        }
+
+        .brand:hover {
+            transform: scale(1.05);
+            color: #1a1a1a;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+            isolation: isolate;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--graphite-gray);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            color: var(--sunset-coral);
+            background: rgba(255, 107, 157, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--sunset-coral);
+            transition: width 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 1px;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 70%;
+        }
+
+        .nav-links a.active {
+            color: var(--sunset-coral);
+            background: rgba(255, 107, 157, 0.1);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 107, 157, 0.1);
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: var(--graphite-gray);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sunset-coral), var(--pastel-pink), var(--soft-teal));
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFF0F5 25%, #F8F0FF 50%, #FFF8F2 75%, #FFE5E5 100%);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 6rem 2rem 2rem;
+            gap: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23FFB6C1" opacity="0.3"/><circle cx="80" cy="40" r="1.5" fill="%23DDA0DD" opacity="0.3"/><circle cx="40" cy="80" r="1" fill="%23F0E68C" opacity="0.3"/><circle cx="70" cy="70" r="2.5" fill="%23FFE4E1" opacity="0.3"/></svg>') repeat;
+            animation: backgroundFloat 25s linear infinite;
+        }
+
+        .hero::after {
+            content: '✨';
+            position: absolute;
+            top: 15%;
+            right: 15%;
+            font-size: 3rem;
+            opacity: 0.6;
+            animation: sparkle 3s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 10px rgba(255, 182, 193, 0.5));
+        }
+
+        /* Hero Image */
+        .hero-image {
+            position: relative;
+            transform: rotate(-2deg);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 25px 50px rgba(255, 182, 193, 0.3));
+        }
+
+        .hero-image:hover {
+            transform: rotate(1deg) scale(1.03) translateY(-8px);
+            filter: drop-shadow(0 35px 70px rgba(255, 182, 193, 0.4));
+        }
+
+        .polaroid {
+            background: linear-gradient(145deg, #FFFFFF 0%, #FFF8F8 100%);
+            padding: 25px 25px 70px 25px;
+            border-radius: 20px;
+            box-shadow: 
+                0 30px 60px rgba(255, 182, 193, 0.2),
+                0 15px 30px rgba(221, 160, 221, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            max-width: 420px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .polaroid::before {
+            content: '💖';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2rem;
+            opacity: 0.7;
+            animation: pulse 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(255, 182, 193, 0.6));
+        }
+
+        .polaroid::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            filter: brightness(1.05) contrast(1.02) saturate(1.1);
+        }
+
+        .polaroid:hover img {
+            transform: scale(1.02);
+            filter: brightness(1.1) contrast(1.05) saturate(1.15);
+        }
+
+        .polaroid-caption {
+            text-align: center;
+            margin-top: 20px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            color: #8B4B8C;
+            position: relative;
+            font-weight: 600;
+        }
+
+        .polaroid-caption::after {
+            content: '🌸';
+            position: absolute;
+            right: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            animation: twinkle 2s ease-in-out infinite alternate;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            padding: 3rem;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 240, 245, 0.8) 100%);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 25px 50px rgba(255, 182, 193, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .hero-content::before {
+            content: '⭐';
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            font-size: 2rem;
+            opacity: 0.4;
+            animation: twinkle 2s ease-in-out infinite alternate;
+        }
+
+        .hero-content::after {
+            content: '💫';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 1.5rem;
+            opacity: 0.5;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-title {
+            font-family: 'Caveat', cursive;
+            font-size: 4rem;
+            background: linear-gradient(135deg, #FF69B4 0%, #FFB6C1 25%, #DDA0DD 50%, #F0E68C 75%, #FF69B4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            position: relative;
+            line-height: 1.1;
+            font-weight: 700;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px rgba(255, 105, 180, 0.3));
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-1deg);
+            width: 150px;
+            height: 8px;
+            background: linear-gradient(90deg, #FF69B4, #FFB6C1, #DDA0DD);
+            border-radius: 4px;
+            animation: underlineGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hero-stats {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            line-height: 2.2;
+            color: #6B4B8C;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hero-stats div {
+            margin-bottom: 1rem;
+            padding: 1rem 1.5rem;
+            border-left: 5px solid transparent;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-stats div:nth-child(1) {
+            border-left-color: #FF69B4;
+            animation: statSlide 0.8s ease-out 0.2s both;
+        }
+
+        .hero-stats div:nth-child(2) {
+            border-left-color: #DDA0DD;
+            animation: statSlide 0.8s ease-out 0.4s both;
+        }
+
+        .hero-stats div:nth-child(3) {
+            border-left-color: #FFB6C1;
+            animation: statSlide 0.8s ease-out 0.6s both;
+        }
+
+        .hero-stats div:hover {
+            transform: translateX(15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.2);
+            border-radius: 20px;
+        }
+
+        .hero-stats .emoji {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            display: inline-block;
+            animation: emojiFloat 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.4));
+        }
+
+        /* Destinations Section */
+        .where-next {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--warm-beige) 0%, var(--pastel-pink) 100%);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .blogs .section-title {
+            padding-top: 2rem;
+          
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--sunset-coral);
+            font-family: 'Caveat', cursive;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2::before {
+            content: '📍';
+            position: absolute;
+            top: -10px;
+            right: -30px;
+            font-size: 1.5rem;
+            transform: rotate(15deg);
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 120px;
+            height: 4px;
+            background: var(--sunset-coral);
+            border-radius: 2px;
+        }
+
+        .destinations-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .destination-card {
+            width: 100%;
+            background: var(--snow-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            transform: rotate(-1deg);
+            border: 1px solid #dbdbdb;
+        }
+
+        .destination-card:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        .destination-card:hover {
+            transform: rotate(0deg) translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border-color: var(--sunset-coral);
+        }
+
+        .destination-card:hover .destination-image {
+            transform: scale(1.05);
+            filter: brightness(1.1) contrast(1.05);
+        }
+
+        /* Instagram-style post elements */
+        .insta-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .insta-profile-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .insta-username {
+            font-weight: 600;
+            font-size: 14px;
+            color: #262626;
+        }
+
+        .insta-location {
+            font-size: 12px;
+            color: #8e8e8e;
+            margin-top: 2px;
+        }
+
+        .destination-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .insta-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .insta-action-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .insta-action-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #262626;
+            transition: color 0.2s ease;
+        }
+
+        .insta-action-btn:hover {
+            color: #8e8e8e;
+        }
+
+        .insta-action-btn.liked {
+            color: #ed4956;
+        }
+
+        .insta-likes {
+            font-weight: 600;
+            font-size: 14px;
+            color: #262626;
+            padding: 0 16px 8px;
+        }
+
+        .destination-info {
+            padding: 0 16px 16px;
+        }
+
+        .insta-caption {
+            font-size: 14px;
+            color: #262626;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .insta-hashtags {
+            color: #00376b;
+            font-size: 14px;
+        }
+
+        .insta-time {
+            font-size: 10px;
+            color: #8e8e8e;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            margin-top: 8px;
+        }
+
+        /* Hide unused elements */
+        .destination-name,
+        .destination-accent,
+        .destination-card::before {
+            display: none;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--dusty-lavender);
+            padding: 4rem 2rem;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            transform: rotate(-3deg);
+        }
+
+        .about-image:hover {
+            transform: rotate(0deg);
+        }
+
+        .about-polaroid {
+            background: var(--snow-white);
+            padding: 20px 20px 60px 20px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .about-polaroid::before {
+            content: '📌';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 1.5rem;
+            transform: rotate(15deg);
+        }
+
+        .about-polaroid img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .about-content {
+            background: var(--snow-white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .about-content::before {
+            content: '💕';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .about-content h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: var(--sunset-coral);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .about-text .drop-cap {
+            float: left;
+            font-size: 4rem;
+            line-height: 3rem;
+            padding-right: 8px;
+            padding-top: 4px;
+            color: var(--sunset-coral);
+            font-weight: 700;
+            font-family: 'Caveat', cursive;
+        }
+
+        /* Social Media Icons */
+        .social-media-icons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.8rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-icon:hover::before {
+            opacity: 1;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+
+        .social-icon.instagram:hover {
+            box-shadow: 0 15px 35px rgba(240, 148, 51, 0.4);
+        }
+
+        .social-icon.tiktok {
+            background: linear-gradient(45deg, #000000 0%, #ff0050 50%, #00f2ea 100%);
+            color: white;
+        }
+
+        .social-icon.tiktok:hover {
+            box-shadow: 0 15px 35px rgba(255, 0, 80, 0.4);
+        }
+
+        .social-icon.facebook {
+            background: linear-gradient(45deg, #1877f2 0%, #42a5f5 100%);
+            color: white;
+        }
+
+        .social-icon.facebook:hover {
+            box-shadow: 0 15px 35px rgba(24, 119, 242, 0.4);
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF69B4 0%, #FFB6C1 50%, #DDA0DD 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 25px rgba(255, 105, 180, 0.3),
+                0 0 20px rgba(255, 105, 180, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 15px 35px rgba(255, 105, 180, 0.4),
+                0 0 30px rgba(255, 105, 180, 0.3);
+            background: linear-gradient(135deg, #FF1493 0%, #FF69B4 50%, #DA70D6 100%);
+        }
+
+        .cta-button::after {
+            content: '✨';
+            margin-left: 0.5rem;
+            font-size: 1rem;
+            animation: sparkle 2s ease-in-out infinite alternate;
+        }
+
+        /* Blog Section */
+        .blogs {
+            background: var(--warm-beige);
+            padding: 8rem 2rem 4rem 2rem;
+        }
+
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .blog-card {
+            background: var(--snow-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.05);
+        }
+
+        .blog-content {
+            padding: 2rem;
+        }
+
+        .blog-category {
+            display: inline-block;
+            background: var(--sunset-coral);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .blog-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--graphite-gray);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .blog-date {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .blog-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 1.1rem;
+        }
+
+        .rating-text {
+            color: #666;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .read-more-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--sunset-coral), var(--dusty-lavender));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 140, 148, 0.4);
+        }
+
+        /* YouTube Section */
+        .youtube {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--warm-beige) 0%, var(--pastel-pink) 100%);
+        }
+
+        .youtube-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .youtube-icon {
+            font-size: 2.5rem;
+            color: #ff0000;
+            animation: pulse 2s infinite;
+        }
+
+        .youtube-description {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.1rem;
+            color: var(--graphite-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .video-gallery-container {
+            display: flex;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 3px solid var(--warm-beige);
+        }
+
+        .main-video-section {
+            flex: 2;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--soft-teal);
+            transition: all 0.3s ease;
+            transform: rotate(-1deg);
+        }
+
+        .main-video-section:hover {
+            transform: rotate(0deg) translateY(-5px);
+            border-color: var(--dusty-lavender);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-thumbnail-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .main-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .main-thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-thumbnail-container:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 70px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--dusty-lavender);
+            transition: all 0.3s ease;
+            border: 3px solid var(--dusty-lavender);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .play-button:hover {
+            background: var(--dusty-lavender);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .channel-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .channel-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--soft-teal);
+        }
+
+        .channel-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .channel-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--graphite-gray);
+            font-size: 0.9rem;
+        }
+
+        .video-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--graphite-gray);
+            margin: 0;
+        }
+
+        .sidebar-thumbnails {
+            flex: 1;
+            background: linear-gradient(135deg, var(--warm-beige) 0%, var(--pastel-pink) 100%);
+            border-radius: 15px;
+            padding: 1rem;
+            max-height: 500px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--dusty-lavender) var(--warm-beige);
+            border: 2px solid var(--soft-teal);
+        }
+
+        .sidebar-thumbnails::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-thumbnails::-webkit-scrollbar-track {
+            background: var(--warm-beige);
+            border-radius: 3px;
+        }
+
+        .sidebar-thumbnails::-webkit-scrollbar-thumb {
+            background: var(--dusty-lavender);
+            border-radius: 3px;
+        }
+
+        .thumbnail-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 0.5rem;
+            border: 2px solid transparent;
+            background: white;
+            transform: rotate(-0.5deg);
+        }
+
+        .thumbnail-item:nth-child(even) {
+            transform: rotate(0.5deg);
+        }
+
+        .thumbnail-item:hover {
+            background: var(--pastel-pink);
+            border-color: var(--dusty-lavender);
+            transform: rotate(0deg) translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .thumbnail-item:hover .thumbnail-wrapper {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .thumbnail-item.active {
+            background: linear-gradient(135deg, var(--pastel-pink) 0%, var(--warm-beige) 100%);
+            border-color: var(--soft-teal);
+            transform: rotate(0deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .thumbnail-wrapper {
+            position: relative;
+            flex-shrink: 0;
+            width: 80px;
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--warm-beige);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .thumbnail-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail-item:hover .thumbnail-wrapper img {
+            transform: scale(1.15);
+            filter: brightness(1.1) contrast(1.05);
+        }
+
+        .duration {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .thumbnail-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .thumbnail-info h4 {
+            color: var(--graphite-gray);
+            font-size: 0.8rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 0 0 0.25rem 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .thumbnail-item:hover .thumbnail-info h4 {
+            color: var(--dusty-lavender);
+        }
+
+        .thumbnail-item.active .thumbnail-info h4 {
+            color: var(--soft-teal);
+        }
+
+        .channel-meta {
+            color: #888;
+            font-size: 0.7rem;
+            margin: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--warm-beige);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pastel-pink), var(--soft-teal), var(--sunset-coral), var(--dusty-lavender));
+        }
+
+        .footer-title {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: var(--sunset-coral);
+            margin-bottom: 1rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--snow-white);
+            border-radius: 50%;
+            color: var(--graphite-gray);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-link:hover {
+            background: var(--sunset-coral);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 140, 148, 0.4);
+        }
+
+        /* Animation Utilities */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Keyframe Animations */
+        @keyframes sparkle {
+            0% { transform: translateY(-50%) scale(0.8) rotate(0deg); }
+            100% { transform: translateY(-50%) scale(1.2) rotate(180deg); }
+        }
+
+        @keyframes backgroundFloat {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-100px) translateY(-100px); }
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+            100% { opacity: 0.7; transform: scale(1.2) rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes underlineGlow {
+            0% { width: 120px; opacity: 0.7; box-shadow: 0 0 10px rgba(255, 105, 180, 0.3); }
+            100% { width: 150px; opacity: 1; box-shadow: 0 0 20px rgba(255, 105, 180, 0.6); }
+        }
+
+        @keyframes statSlide {
+            0% { transform: translateX(-40px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes emojiFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced Mobile Responsive Design */
+        /* Small phones */
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .brand {
+                font-size: 1.4rem;
+                margin-left: 0;
+            }
+
+            .hero {
+                padding: 3rem 1rem 1rem;
+                gap: 1.5rem;
+                min-height: 90vh;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+
+            .hero-content {
+                padding: 1.5rem;
+            }
+
+            .hero-stats {
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            .polaroid {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+
+            .social-media-icons {
+                justify-content: center;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+                padding: 0 1rem;
+                text-align: center;
+            }
+
+            .destinations-grid {
+                padding: 0.5rem;
+                gap: 1rem;
+            }
+
+            .destination-card {
+                max-width: 280px;
+            }
+
+            .insta-header {
+                padding: 0.8rem;
+            }
+
+            .insta-username {
+                font-size: 0.9rem;
+            }
+
+            .insta-location {
+                font-size: 0.8rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .video-gallery-container {
+                padding: 0.5rem;
+            }
+
+            .main-video-section {
+                padding: 1rem;
+            }
+
+            .video-title {
+                font-size: 1rem;
+            }
+
+            .thumbnail-wrapper {
+                width: 50px;
+            }
+
+            .blog-card {
+                max-width: 320px;
+                padding: 1rem;
+            }
+
+            .blog-title {
+                font-size: 1.1rem;
+            }
+
+            .blog-excerpt {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Tablets */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .brand {
+                font-size: 1.6rem;
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                gap: 0;
+                padding: 2rem;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(20px);
+                transform: translateY(-100vh);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 0;
+                visibility: hidden;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+                opacity: 0;
+                transform: translateY(20px);
+                animation: slideInUp 0.3s ease forwards;
+            }
+
+            .nav-links.active li:nth-child(1) { animation-delay: 0.1s; }
+            .nav-links.active li:nth-child(2) { animation-delay: 0.2s; }
+            .nav-links.active li:nth-child(3) { animation-delay: 0.3s; }
+            .nav-links.active li:nth-child(4) { animation-delay: 0.4s; }
+            .nav-links.active li:nth-child(5) { animation-delay: 0.5s; }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+                text-align: center;
+                font-size: 1.1rem;
+                border-radius: 12px;
+                margin: 0.5rem 0;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 4rem 1rem 2rem;
+                text-align: center;
+            }
+
+            .hero-image {
+                order: -1;
+                margin-bottom: 2rem;
+                transform: rotate(0deg);
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-content {
+                padding: 2rem;
+            }
+
+            .polaroid {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .hero-stats {
+                font-size: 1.1rem;
+                text-align: center;
+            }
+
+            .social-media-icons {
+                justify-content: center;
+            }
+
+            .cta-button {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 1rem;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+            
+            .destination-card {
+                max-width: 350px;
+                margin: 0 auto;
+                transform: rotate(0deg);
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .blogs {
+                padding: 6rem 1rem 3rem 1rem;
+            }
+            
+            .blogs .section-title {
+                padding-top: 1rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+            
+            .blog-card {
+                transform: rotate(0deg);
+                margin: 0 auto;
+                max-width: 400px;
+            }
+            
+            .blog-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+
+
+            .footer-socials {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Large tablets and small laptops */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .destinations-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .hero {
+                padding: 5rem 2rem 2rem;
+            }
+
+            .video-gallery-container {
+                padding: 2rem;
+            }
+        }
+
+        /* Mobile Responsive - Updated YouTube Section */
+        @media (max-width: 768px) {
+            .video-gallery-container {
+                flex-direction: column;
+                padding: 12px;
+                gap: 16px;
+            }
+            
+            .main-video-section {
+                order: 1;
+            }
+            
+            .sidebar-thumbnails {
+                order: 2;
+                max-height: 400px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+                padding: 12px;
+                border-radius: 12px;
+                /* Remove horizontal scrolling */
+                display: block;
+                white-space: normal;
+            }
+            
+            .thumbnail-item {
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                margin-bottom: 12px;
+                border: 1px solid #f3e8ff;
+                /* Remove inline-block to stack vertically */
+                display: block;
+                width: 100%;
+            }
+            
+            .thumbnail-item:hover {
+                background: #fdf2f8;
+                border-color: #ec4899;
+                box-shadow: 0 4px 12px rgba(236, 72, 153, 0.15);
+            }
+            
+            .thumbnail-item.active {
+                background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+                border-color: #ec4899;
+                box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
+            }
+            
+            .thumbnail-wrapper {
+                width: 100px;
+                flex-shrink: 0;
+            }
+            
+            .video-title {
+                font-size: 18px;
+            }
+            
+            /* Custom scrollbar for vertical scrolling */
+            .sidebar-thumbnails::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            .sidebar-thumbnails::-webkit-scrollbar-track {
+                background: #f1f5f9;
+                border-radius: 3px;
+            }
+            
+            .sidebar-thumbnails::-webkit-scrollbar-thumb {
+                background: #ec4899;
+                border-radius: 3px;
+            }
+            
+            .sidebar-thumbnails::-webkit-scrollbar-thumb:hover {
+                background: #be185d;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-gallery-container {
+                padding: 8px;
+            }
+            
+            .sidebar-thumbnails {
+                max-height: 300px;
+                padding: 8px;
+            }
+            
+            .thumbnail-wrapper {
+                width: 80px;
+            }
+            
+            .thumbnail-info h4 {
+                font-size: 12px;
+            }
+            
+            .video-title {
+                font-size: 16px;
+            }
+        }
+
+        /* Landscape orientation for mobile devices */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: 100vh;
+                padding: 2rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .navbar {
+                padding: 0.5rem 1rem;
+            }
+
+            .polaroid {
+                max-width: 200px;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .destination-card:hover,
+            .blog-card:hover {
+                transform: none;
+            }
+
+            .social-icon {
+                min-width: 48px;
+                min-height: 48px;
+            }
+
+            .nav-links a {
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-menu-btn {
+                min-width: 48px;
+                min-height: 48px;
+            }
+        }
+</style>
+</head>
+<body>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator"></div>
+    
+    <!-- Sticky Navbar -->
+    <nav class="navbar">
+        <a href="#hero" class="brand">_scottishquine</a>
+        <ul class="nav-links handwritten">
+            <li><a href="#hero" class="active">Home</a></li>
+            <li><a href="#where-we-roam">Where We Roam</a></li>
+            <li><a href="#youtube">YouTube</a></li>
+            <li><a href="#blogs">Blogs</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section - Split Screen -->
+    <section id="hero" class="hero">
+        <div class="hero-image slide-in-left">
+            <div class="polaroid">
+                <img src="/images/artist2.jpg" alt="_scottishquine">
+                <div class="polaroid-caption">Living my best life! ✨</div>
+            </div>
+        </div>
+        <div class="hero-content slide-in-right">
+            <h1 class="hero-title handwritten">Digital Creator</h1>
+            <div class="hero-stats">
+                <div><span class="emoji">📍</span>Aberdeen-based creator, mum, memory-maker—and your go-to gal for happy vibes & travel inspo! 🎒💕</div>
+            </div>
+            <div class="social-media-icons">
+                <a href="https://instagram.com/_scottishquine" target="_blank" class="social-icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://tiktok.com/@_scottishquine" target="_blank" class="social-icon tiktok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://facebook.com/_scottishquine" target="_blank" class="social-icon facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+            
+        </div>
+    </section>
+
+
+    <!-- Where We Roam Section -->
+    <section id="where-we-roam" class="where-next">
+        <div class="section-title fade-in">
+            <h2>Where we roam</h2>
+        </div>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <div class="insta-header">
+                    <div class="insta-profile-pic">SQ</div>
+                    <div>
+                        <div class="insta-username">_scottishquine</div>
+                        <div class="insta-location">Orlando, Florida</div>
+                    </div>
+                </div>
+                <img src="/images/orlando.jpg" alt="Orlando" class="destination-image">
+                <div class="insta-actions">
+                    <div class="insta-action-buttons">
+                        <button class="insta-action-btn like-btn" onclick="toggleLike(this)">♡</button>
+                        <button class="insta-action-btn">💬</button>
+                        <button class="insta-action-btn">📤</button>
+                    </div>
+                    <button class="insta-action-btn">🔖</button>
+                </div>
+                <div class="insta-likes">1,234 likes</div>
+                <div class="destination-info">
+                    <div class="insta-caption">
+                        <strong>_scottishquine</strong> Magic Kingdom adventures! ✨ The happiest place on earth never gets old 🏰
+                    </div>
+                    <div class="insta-hashtags">#Orlando #DisneyWorld #MagicKingdom #Travel #Adventure</div>
+                    <div class="insta-time">2 hours ago</div>
+                </div>
+                <div class="destination-accent"></div>
+            </div>
+            <div class="destination-card">
+                <div class="insta-header">
+                    <div class="insta-profile-pic">SQ</div>
+                    <div>
+                        <div class="insta-username">_scottishquine</div>
+                        <div class="insta-location">New Orleans, Louisiana</div>
+                    </div>
+                </div>
+                <img src="/images/new-orleans.jpg" alt="New Orleans" class="destination-image">
+                <div class="insta-actions">
+                    <div class="insta-action-buttons">
+                        <button class="insta-action-btn like-btn" onclick="toggleLike(this)">♡</button>
+                        <button class="insta-action-btn">💬</button>
+                        <button class="insta-action-btn">📤</button>
+                    </div>
+                    <button class="insta-action-btn">🔖</button>
+                </div>
+                <div class="insta-likes">987 likes</div>
+                <div class="destination-info">
+                    <div class="insta-caption">
+                        <strong>_scottishquine</strong> Jazz, beignets, and southern charm 🎷 NOLA has my heart! 💕
+                    </div>
+                    <div class="insta-hashtags">#NewOrleans #NOLA #Jazz #Beignets #SouthernCharm #Travel</div>
+                    <div class="insta-time">1 day ago</div>
+                </div>
+                <div class="destination-accent"></div>
+            </div>
+            <div class="destination-card">
+                <div class="insta-header">
+                    <div class="insta-profile-pic">SQ</div>
+                    <div>
+                        <div class="insta-username">_scottishquine</div>
+                        <div class="insta-location">New York, New York</div>
+                    </div>
+                </div>
+                <img src="data:image/webp;base64,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" alt="New York" class="destination-image">
+                <div class="insta-actions">
+                    <div class="insta-action-buttons">
+                        <button class="insta-action-btn like-btn" onclick="toggleLike(this)">♡</button>
+                        <button class="insta-action-btn">💬</button>
+                        <button class="insta-action-btn">📤</button>
+                    </div>
+                    <button class="insta-action-btn">🔖</button>
+                </div>
+                <div class="insta-likes">2,156 likes</div>
+                <div class="destination-info">
+                    <div class="insta-caption">
+                        <strong>_scottishquine</strong> The city that never sleeps! 🌃 Times Square energy is unmatched ⚡
+                    </div>
+                    <div class="insta-hashtags">#NYC #NewYork #TimesSquare #CityLife #Travel #BigApple</div>
+                    <div class="insta-time">3 days ago</div>
+                </div>
+                <div class="destination-accent"></div>
+            </div>
+            <div class="destination-card">
+                <div class="insta-header">
+                    <div class="insta-profile-pic">SQ</div>
+                    <div>
+                        <div class="insta-username">_scottishquine</div>
+                        <div class="insta-location">Yellowstone National Park</div>
+                    </div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop" alt="Yellowstone" class="destination-image">
+                <div class="insta-actions">
+                    <div class="insta-action-buttons">
+                        <button class="insta-action-btn like-btn" onclick="toggleLike(this)">♡</button>
+                        <button class="insta-action-btn">💬</button>
+                        <button class="insta-action-btn">📤</button>
+                    </div>
+                    <button class="insta-action-btn">🔖</button>
+                </div>
+                <div class="insta-likes">1,543 likes</div>
+                <div class="destination-info">
+                    <div class="insta-caption">
+                        <strong>_scottishquine</strong> Nature's masterpiece! 🏔️ Yellowstone's geysers and wildlife are incredible 🦌
+                    </div>
+                    <div class="insta-hashtags">#Yellowstone #NationalPark #Nature #Geysers #Wildlife #Adventure</div>
+                    <div class="insta-time">5 days ago</div>
+                </div>
+                <div class="destination-accent"></div>
+            </div>
+            <div class="destination-card">
+                <div class="insta-header">
+                    <div class="insta-profile-pic">SQ</div>
+                    <div>
+                        <div class="insta-username">_scottishquine</div>
+                        <div class="insta-location">San Francisco, California</div>
+                    </div>
+                </div>
+                <img src="https://ts2.mm.bing.net/th?id=OIP.aCgwWHMCB-PhEh1Bu0dtPAHaE7&pid=15.1" alt="San Francisco" class="destination-image">
+                <div class="insta-actions">
+                    <div class="insta-action-buttons">
+                        <button class="insta-action-btn like-btn" onclick="toggleLike(this)">♡</button>
+                        <button class="insta-action-btn">💬</button>
+                        <button class="insta-action-btn">📤</button>
+                    </div>
+                    <button class="insta-action-btn">🔖</button>
+                </div>
+                <div class="insta-likes">1,876 likes</div>
+                <div class="destination-info">
+                    <div class="insta-caption">
+                        <strong>_scottishquine</strong> Golden Gate views and cable car rides! 🌉 SF has stolen my heart 💙
+                    </div>
+                    <div class="insta-hashtags">#SanFrancisco #GoldenGate #CableCards #California #Travel #WestCoast</div>
+                    <div class="insta-time">1 week ago</div>
+                </div>
+                <div class="destination-accent"></div>
+            </div>
+            <div class="destination-card">
+                <div class="insta-header">
+                    <div class="insta-profile-pic">SQ</div>
+                    <div>
+                        <div class="insta-username">_scottishquine</div>
+                        <div class="insta-location">Grand Canyon National Park</div>
+                    </div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=300&h=200&fit=crop" alt="Grand Canyon" class="destination-image">
+                <div class="insta-actions">
+                    <div class="insta-action-buttons">
+                        <button class="insta-action-btn like-btn" onclick="toggleLike(this)">♡</button>
+                        <button class="insta-action-btn">💬</button>
+                        <button class="insta-action-btn">📤</button>
+                    </div>
+                    <button class="insta-action-btn">🔖</button>
+                </div>
+                <div class="insta-likes">2,345 likes</div>
+                <div class="destination-info">
+                    <div class="insta-caption">
+                        <strong>_scottishquine</strong> Speechless at the Grand Canyon! 🏜️ Mother Nature's artwork at its finest 🎨
+                    </div>
+                    <div class="insta-hashtags">#GrandCanyon #NationalPark #Arizona #Nature #Sunset #Breathtaking</div>
+                    <div class="insta-time">2 weeks ago</div>
+                </div>
+                <div class="destination-accent"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Section -->
+    <section id="youtube" class="youtube">
+        <div class="section-title fade-in">
+            <div class="youtube-header">
+                <i class="fab fa-youtube youtube-icon"></i>
+                <h2>YouTube</h2>
+            </div>
+            <p class="youtube-description">Join me on my travel adventures! Watch vlogs, travel tips, and behind-the-scenes content from my journeys around the world.</p>
+        </div>
+        
+        <div class="video-gallery-container">
+            <!-- Main Video Preview Section -->
+            <div class="main-video-section">
+                <div class="video-thumbnail-container">
+                    <img id="mainThumbnail" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop" alt="Main Video Thumbnail" class="main-thumbnail">
+                    <div class="play-overlay">
+                        <div id="mainPlayButton" class="play-button">▶</div>
+                    </div>
+                </div>
+                
+                <div class="video-info">
+                    <div class="channel-info">
+                        <div class="channel-logo">
+                            <img src="/images/artist image.jpg" alt="_scottishquine" class="channel-avatar">
+                        </div>
+                        <h3 id="mainTitle" class="video-title">Iceland Adventure: Chasing Northern Lights with the Kids!</h3>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Sidebar Thumbnails -->
+            <div class="sidebar-thumbnails">
+                <div class="thumbnail-item active" data-title="Iceland Adventure: Chasing Northern Lights with the Kids!" data-image="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop" data-url="https://www.youtube.com/watch?v=example1">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop" alt="Iceland Adventure">
+                    </div>
+                    <div class="thumbnail-content">
+                        <h4 class="thumbnail-title">Iceland Adventure: Chasing Northern Lights with the Kids!</h4>
+                        <div class="thumbnail-meta">
+                            <span class="thumbnail-views">125K views</span>
+                            <span class="thumbnail-duration">12:34</span>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="thumbnail-item" data-title="Family Travel Tips: Packing Hacks for Adventures" data-image="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=600&h=400&fit=crop" data-url="https://www.youtube.com/watch?v=example2">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=600&h=400&fit=crop" alt="Family Travel Tips">
+                    </div>
+                    <div class="thumbnail-content">
+                        <h4 class="thumbnail-title">Family Travel Tips: Packing Hacks for Adventures</h4>
+                        <div class="thumbnail-meta">
+                            <span class="thumbnail-views">89K views</span>
+                            <span class="thumbnail-duration">8:45</span>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="thumbnail-item" data-title="Scottish Highlands Road Trip: Hidden Gems" data-image="https://1.bp.blogspot.com/-a-64ERilkcw/XsfdmMbLRyI/AAAAAAAAG6g/LjHmh9bCiZ4l9Xh7GcDBTY0Qr2r65pMdQCLcBGAsYHQ/s1600/01+Edinburgh+Castle.jpg" data-url="https://www.youtube.com/watch?v=example3">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://1.bp.blogspot.com/-a-64ERilkcw/XsfdmMbLRyI/AAAAAAAAG6g/LjHmh9bCiZ4l9Xh7GcDBTY0Qr2r65pMdQCLcBGAsYHQ/s1600/01+Edinburgh+Castle.jpg" alt="Scottish Highlands">
+                    </div>
+                    <div class="thumbnail-content">
+                        <h4 class="thumbnail-title">Scottish Highlands Road Trip: Hidden Gems</h4>
+                        <div class="thumbnail-meta">
+                            <span class="thumbnail-views">156K views</span>
+                            <span class="thumbnail-duration">15:22</span>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="thumbnail-item" data-title="Paris with Kids: Best Family-Friendly Spots" data-image="https://tse2.mm.bing.net/th/id/OIP.XJV8sAkHM9UDOBITw2h2PwHaE5?rs=1&pid=ImgDetMain&o=7&rm=3" data-url="https://www.youtube.com/watch?v=example4">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://tse2.mm.bing.net/th/id/OIP.XJV8sAkHM9UDOBITw2h2PwHaE5?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Paris with Kids">
+                    </div>
+                    <div class="thumbnail-content">
+                        <h4 class="thumbnail-title">Paris with Kids: Best Family-Friendly Spots</h4>
+                        <div class="thumbnail-meta">
+                            <span class="thumbnail-views">203K views</span>
+                            <span class="thumbnail-duration">11:18</span>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="thumbnail-item" data-title="Travel Photography: Capturing Perfect Moments" data-image="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&h=400&fit=crop" data-url="https://www.youtube.com/watch?v=example5">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&h=400&fit=crop" alt="Travel Photography">
+                    </div>
+                    <div class="thumbnail-content">
+                        <h4 class="thumbnail-title">Travel Photography: Capturing Perfect Moments</h4>
+                        <div class="thumbnail-meta">
+                            <span class="thumbnail-views">78K views</span>
+                            <span class="thumbnail-duration">9:56</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blogs" class="blogs">
+        <div class="blog-container">
+            <div class="section-title fade-in">
+                <h2>Travel Blogs & Reviews</h2>
+                <p>Discover the best tourist destinations across the USA through detailed reviews and travel insights!</p>
+            </div>
+            
+            <div class="blog-grid">
+                <article class="blog-card fade-in">
+                    <img src="/images/new-orleans.jpg" alt="New Orleans" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">City Guide</span>
+                        <h3 class="blog-title">New Orleans: A Soulful Journey Through the Big Easy</h3>
+                        <p class="blog-excerpt">From the vibrant French Quarter to the soulful jazz clubs, New Orleans offers an unforgettable cultural experience. Discover the best spots for authentic Creole cuisine, historic architecture, and live music that will captivate your heart.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">December 15, 2024</span>
+                            <div class="blog-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">5.0/5</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more-btn">Read Full Review</a>
+                    </div>
+                </article>
+
+                <article class="blog-card fade-in">
+                    <img src="/images/orlando.jpg" alt="Orlando" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Family Travel</span>
+                        <h3 class="blog-title">Orlando: The Ultimate Family Adventure Destination</h3>
+                        <p class="blog-excerpt">Beyond the theme parks, Orlando offers incredible family experiences. From world-class dining to unique attractions, discover why Orlando should be your next family vacation destination with kids of all ages.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">December 10, 2024</span>
+                            <div class="blog-rating">
+                                <span class="stars">★★★★☆</span>
+                                <span class="rating-text">4.5/5</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more-btn">Read Full Review</a>
+                    </div>
+                </article>
+
+                <article class="blog-card fade-in">
+                    <img src="/images/london.jpg" alt="London" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Cultural Experience</span>
+                        <h3 class="blog-title">London Calling: A Perfect Blend of History and Modernity</h3>
+                        <p class="blog-excerpt">Experience the charm of London through its iconic landmarks, world-class museums, and vibrant neighborhoods. From afternoon tea to West End shows, discover what makes London a must-visit destination.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">December 5, 2024</span>
+                            <div class="blog-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.8/5</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more-btn">Read Full Review</a>
+                    </div>
+                </article>
+
+                <article class="blog-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" alt="Yellowstone" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Nature & Wildlife</span>
+                        <h3 class="blog-title">Yellowstone National Park: America's Natural Wonder</h3>
+                        <p class="blog-excerpt">Explore the geothermal wonders, diverse wildlife, and breathtaking landscapes of America's first national park. From Old Faithful to the Grand Prismatic Spring, discover the best ways to experience Yellowstone's natural beauty.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">November 28, 2024</span>
+                            <div class="blog-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">5.0/5</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more-btn">Read Full Review</a>
+                    </div>
+                </article>
+
+                <article class="blog-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=400&h=250&fit=crop" alt="Grand Canyon" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Adventure</span>
+                        <h3 class="blog-title">Grand Canyon: Nature's Masterpiece in Arizona</h3>
+                        <p class="blog-excerpt">Stand in awe at one of the world's most spectacular natural wonders. Whether you're hiking the rim trails or taking a helicopter tour, the Grand Canyon offers unforgettable experiences for every type of traveler.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">November 20, 2024</span>
+                            <div class="blog-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.9/5</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more-btn">Read Full Review</a>
+                    </div>
+                </article>
+
+                <article class="blog-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=250&fit=crop" alt="San Francisco" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Urban Exploration</span>
+                        <h3 class="blog-title">San Francisco: Golden Gate to West Coast Adventures</h3>
+                        <p class="blog-excerpt">From the iconic Golden Gate Bridge to the bustling Fisherman's Wharf, San Francisco captivates with its unique charm, diverse neighborhoods, and incredible food scene. Discover the best of the City by the Bay.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">November 15, 2024</span>
+                            <div class="blog-rating">
+                                <span class="stars">★★★★☆</span>
+                                <span class="rating-text">4.6/5</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more-btn">Read Full Review</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-image slide-in-left">
+                <div class="about-polaroid">
+                    <img src="/images/artist image.jpg" alt="_scottishquine">
+                    <div class="polaroid-caption handwritten">Living the dream! 💫</div>
+                </div>
+            </div>
+            <div class="about-content slide-in-right">
+                <h3 class="handwritten">Hey! I'm _scottishquine</h3>
+                <div class="about-text">
+                    <span class="drop-cap">H </span> ey! I'm _scottishquine, a travel-loving content creator from Aberdeen. I'm a mum of two with a passion for photography and storytelling. Join me on my adventures around the world as I capture the magic of family travel, discover hidden gems, and share the joy of exploring new places with my little ones. From cozy Scottish highlands to bustling city streets, every journey is an opportunity to create beautiful memories and inspire others to embrace their wanderlust!
+                </div>
+                <a href="#" class="cta-button">Read More About Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <h3 class="footer-title handwritten">Let's connect!</h3>
+        <p>Follow my journey and join our travel-loving community!</p>
+        <div class="footer-socials">
+            <a href="https://instagram.com/scottishquine" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://tiktok.com/@scottishquine" target="_blank" class="social-link">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://youtube.com/@scottishquine" target="_blank" class="social-link">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://pinterest.com/scottishquine" target="_blank" class="social-link">
+                <i class="fab fa-pinterest"></i>
+            </a>
+        </div>
+        <p style="margin-top: 2rem; opacity: 0.8;">&copy; 2024 _scottishquine. Made with 💕 for fellow travel enthusiasts.</p>
+    </footer>
+
+    <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Combined DOMContentLoaded event handler
+    document.addEventListener('DOMContentLoaded', function() {
+        // Scroll animations with intersection observer
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe animated elements and add stagger delays
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach((el, index) => {
+            observer.observe(el);
+            if (el.classList.contains('fade-in')) {
+                el.style.transitionDelay = `${index * 0.1}s`;
+            }
+        });
+
+        // Destination cards hover effects
+        document.querySelectorAll('.destination-card').forEach(card => {
+            const isEven = Array.from(card.parentNode.children).indexOf(card) % 2 === 1;
+            const defaultRotation = isEven ? '1deg' : '-1deg';
+            
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'rotate(0deg) translateY(-10px) scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotate(${defaultRotation}) translateY(0) scale(1)`;
+            });
+        });
+
+        // YouTube Gallery functionality
+        const thumbnailItems = document.querySelectorAll('.thumbnail-item');
+        const mainThumbnail = document.getElementById('mainThumbnail');
+        const mainTitle = document.getElementById('mainTitle');
+        const mainPlayButton = document.getElementById('mainPlayButton');
+        let currentVideoUrl = 'https://www.youtube.com/watch?v=example1';
+        
+        if (mainPlayButton) {
+            mainPlayButton.addEventListener('click', () => {
+                window.open(currentVideoUrl, '_blank');
+            });
+        }
+        
+        thumbnailItems.forEach(item => {
+            // Single click to change main video
+            item.addEventListener('click', function() {
+                thumbnailItems.forEach(thumb => thumb.classList.remove('active'));
+                this.classList.add('active');
+                
+                const newTitle = this.getAttribute('data-title');
+                const newImage = this.getAttribute('data-image');
+                const newUrl = this.getAttribute('data-url');
+                
+                currentVideoUrl = newUrl;
+                
+                // Smooth transition effect
+                if (mainThumbnail && mainTitle) {
+                    mainThumbnail.style.opacity = '0.7';
+                    mainThumbnail.style.transform = 'scale(0.98)';
+                    
+                    setTimeout(() => {
+                        mainThumbnail.src = newImage;
+                        mainTitle.textContent = newTitle;
+                        mainThumbnail.style.opacity = '1';
+                        mainThumbnail.style.transform = 'scale(1)';
+                    }, 150);
+                }
+            });
+            
+            // Double click to open video directly
+            item.addEventListener('dblclick', function() {
+                window.open(this.getAttribute('data-url'), '_blank');
+            });
+        });
+    });
+
+    // Instagram-style like button functionality
+    function toggleLike(button) {
+        const isLiked = button.classList.contains('liked');
+        const likesElement = button.closest('.destination-card')?.querySelector('.insta-likes');
+        
+        if (!likesElement) return;
+        
+        const currentLikes = parseInt(likesElement.textContent.replace(/[^0-9]/g, '')) || 0;
+        
+        if (isLiked) {
+            button.classList.remove('liked');
+            button.textContent = '♡';
+            likesElement.textContent = `${(currentLikes - 1).toLocaleString()} likes`;
+        } else {
+            button.classList.add('liked');
+            button.textContent = '❤️';
+            likesElement.textContent = `${(currentLikes + 1).toLocaleString()} likes`;
+        }
+    }
+    // Mobile Navigation Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-links a');
+    const body = document.body;
+    let isMenuOpen = false;
+
+    // Toggle mobile menu function
+    function toggleMobileMenu() {
+        isMenuOpen = !isMenuOpen;
+        
+        if (isMenuOpen) {
+            openMenu();
+        } else {
+            closeMenu();
+        }
+    }
+
+    // Open menu function
+    function openMenu() {
+        mobileMenuBtn.classList.add('active');
+        navLinks.classList.add('active');
+        body.classList.add('menu-open');
+        isMenuOpen = true;
+        
+        // Prevent scrolling on background
+        const scrollY = window.scrollY;
+        body.style.position = 'fixed';
+        body.style.top = `-${scrollY}px`;
+        body.style.width = '100%';
+    }
+
+    // Close menu function
+    function closeMenu() {
+        mobileMenuBtn.classList.remove('active');
+        navLinks.classList.remove('active');
+        body.classList.remove('menu-open');
+        isMenuOpen = false;
+        
+        // Restore scrolling
+        const scrollY = body.style.top;
+        body.style.position = '';
+        body.style.top = '';
+        body.style.width = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+
+    // Event listeners
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+    }
+
+    // Close menu when clicking on navigation links
+    navLinksItems.forEach(link => {
+        link.addEventListener('click', function() {
+            closeMenu();
+        });
+    });
+
+    // Close menu when clicking on the close button (::before pseudo-element area)
+    if (navLinks) {
+        navLinks.addEventListener('click', function(e) {
+            const rect = navLinks.getBoundingClientRect();
+            const closeButtonArea = {
+                top: rect.top,
+                right: rect.right,
+                bottom: rect.top + 80, // Approximate close button area
+                left: rect.right - 80
+            };
+            
+            if (e.clientX >= closeButtonArea.left && e.clientX <= closeButtonArea.right &&
+                e.clientY >= closeButtonArea.top && e.clientY <= closeButtonArea.bottom) {
+                closeMenu();
+            }
+        });
+    }
+
+    // Close menu when clicking outside (on overlay)
+    document.addEventListener('click', function(e) {
+        if (isMenuOpen && !mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+            // Check if click is on the overlay area (not on menu content)
+            const navLinksRect = navLinks.getBoundingClientRect();
+            const isClickOnOverlay = e.clientX < navLinksRect.left || 
+                                   e.clientX > navLinksRect.right || 
+                                   e.clientY < navLinksRect.top || 
+                                   e.clientY > navLinksRect.bottom;
+            
+            if (isClickOnOverlay) {
+                closeMenu();
+            }
+        }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isMenuOpen) {
+            closeMenu();
+        }
+    });
+
+    // Handle window resize - close menu if screen becomes larger
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && isMenuOpen) {
+            closeMenu();
+        }
+    });
+
+    // Smooth scrolling for navigation links (enhance existing functionality)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                // Close mobile menu if open
+                if (isMenuOpen) {
+                    closeMenu();
+                }
+                
+                // Smooth scroll to target
+                setTimeout(() => {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, isMenuOpen ? 400 : 0); // Delay if menu was open
+            }
+        });
+    });
+
+    // Add active state to current navigation item
+    function updateActiveNavItem() {
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav-links a');
+        
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${current}`) {
+                item.classList.add('active');
+            }
+        });
+    }
+
+    // Update active nav item on scroll
+    window.addEventListener('scroll', updateActiveNavItem);
+    
+    // Initial call to set active item
+    updateActiveNavItem();
+});
+</script>
+</body>
+</html>

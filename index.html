@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coeliac Holly - Gluten-Free Food & Travel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fredoka', sans-serif;
+            scroll-behavior: smooth;
+            background: 
+                radial-gradient(circle at 1px 1px, rgba(236, 92, 160, 0.05) 1px, transparent 0);
+            background-size: 20px 20px;
+            background-color: #fefefe;
+        }
+        
+        .polaroid {
+            position: relative;
+            padding: 1rem 1rem 2.5rem 1rem;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: rotate(2deg);
+            transition: all 0.3s ease;
+        }
+        
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.03);
+        }
+        
+        .polaroid::after {
+            content: '';
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 1px;
+            width: 80%;
+            background: rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(236, 92, 160, 0.2);
+        }
+        
+        .social-card {
+            transition: all 0.3s ease;
+        }
+        
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(236, 92, 160, 0.3);
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 1s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .lightbox-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Instagram-style post elements */
+.destination-card {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.insta-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #efefef;
+}
+
+.insta-profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+}
+
+.insta-username {
+    font-weight: 600;
+    font-size: 14px;
+    color: #262626;
+}
+
+.insta-location {
+    font-size: 12px;
+    color: #8e8e8e;
+    margin-top: 2px;
+}
+
+.destination-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.insta-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    border-bottom: 1px solid #efefef;
+}
+
+.insta-action-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.insta-action-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #262626;
+    transition: color 0.2s ease;
+}
+
+.insta-action-btn:hover {
+    color: #8e8e8e;
+}
+
+.insta-action-btn.liked {
+    color: #ed4956;
+}
+
+.insta-likes {
+    font-weight: 600;
+    font-size: 14px;
+    color: #262626;
+    padding: 0 16px 8px;
+}
+
+.destination-info {
+    padding: 0 16px 16px;
+}
+
+.insta-caption {
+    font-size: 14px;
+    color: #262626;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.insta-hashtags {
+    color: #00376b;
+    font-size: 14px;
+}
+
+.insta-time {
+    font-size: 10px;
+    color: #8e8e8e;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    margin-top: 8px;
+}
+/* TikTok Section Styles */
+.tiktok-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.tiktok-embed {
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .tiktok-container {
+        min-height: 300px;
+    }
+    
+    .tiktok-embed {
+        max-width: 100% !important;
+        min-width: 280px !important;
+    }
+}
+
+  /* Enhanced Navigation Styles */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(236, 92, 160, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        /* Logo Styles */
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ec5ca0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-logo img:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 4px 15px rgba(236, 92, 160, 0.3);
+        }
+        
+        /* Enhanced Nav Links */
+        .nav-link {
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ec5ca0, #d63384);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+            border-radius: 25px;
+        }
+        
+        .nav-link:hover::before {
+            left: 0;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(236, 92, 160, 0.3);
+        }
+        
+        /* Active nav link */
+        .nav-link.active {
+            background: linear-gradient(45deg, #ec5ca0, #d63384);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 92, 160, 0.3);
+        }
+        
+        /* Mobile menu enhancements */
+        .mobile-nav-link {
+            position: relative;
+            padding: 12px 20px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            margin: 5px 0;
+        }
+        
+        .mobile-nav-link:hover {
+            background: linear-gradient(45deg, #ec5ca0, #d63384);
+            color: white;
+            transform: translateX(10px);
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Scroll offset for fixed nav */
+        section {
+            scroll-margin-top: 80px;
+        }
+        
+        /* Floating background elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 80%, rgba(236, 92, 160, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(236, 92, 160, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(214, 51, 132, 0.02) 0%, transparent 50%);
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Enhanced section backgrounds */
+        .bg-gradient-to-br {
+            background: linear-gradient(135deg, #fdf2f8 0%, #f3e8ff 50%, #ede9fe 100%) !important;
+            position: relative;
+        }
+
+        .bg-gradient-to-br::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="%23ec5ca0" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+    </style>
+</head>
+<body class="bg-white text-black">
+        <!-- Navigation -->
+    <nav class="fixed top-0 w-full shadow-md z-50 fade-in">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="nav-logo">
+                <img src="/Images/Logo.jpeg" alt="Coeliac Holly Logo">
+                <div class="text-2xl font-bold" style="color: #ec5ca0;">Coeliac Holly</div>
+            </div>
+            <div class="hidden md:flex space-x-4">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#instagram" class="nav-link">Instagram</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <button class="md:hidden focus:outline-none" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars text-2xl" style="color: #ec5ca0;"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden fixed top-0 right-0 w-full h-full bg-white z-40 pt-16 px-6 hidden" id="mobileMenu">
+        <div class="flex flex-col space-y-2 py-4">
+            <a href="#home" class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
+            <a href="#about" class="mobile-nav-link" onclick="closeMobileMenu()">About</a>
+            <a href="#instagram" class="mobile-nav-link" onclick="closeMobileMenu()">Instagram</a>
+            <a href="#gallery" class="mobile-nav-link" onclick="closeMobileMenu()">Gallery</a>
+            <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 px-6 container mx-auto">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0 slide-in-left">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6" style="color: #ec5ca0;">Eat Freely, Travel Boldly</h1>
+                <p class="text-xl md:text-2xl mb-8">I'm Coeliac Holly — on a mission to uncover the best gluten-free eats and share safe bites from every corner of the globe.</p>
+                <a href="https://linktr.ee/coeliac_holly" target="_blank" class="inline-block px-8 py-3 rounded-full font-bold text-white hover:bg-opacity-90 transition" style="background-color: #ec5ca0;">
+                    🔗 Visit My Linktree
+                </a>
+            </div>
+            <div class="md:w-1/2 flex justify-center slide-in-right">
+                <div class="polaroid">
+                    <img src="/Images/Logo.jpeg" alt="Coeliac Holly" class="w-full max-w-md h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-gradient-to-br from-pink-500 to-purple-50">
+        <div class="container mx-auto">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- Image Section -->
+                <div class="lg:w-2/5 flex justify-center">
+                    <div class="polaroid transform hover:rotate-2 transition-transform duration-300">
+                        <img src="/Images/holly.jpg" alt="Coeliac Holly" class="w-full max-w-sm h-auto rounded-lg shadow-xl">
+                    </div>
+                </div>
+                
+                <!-- Text Content -->
+                <div class="lg:w-3/5 space-y-6 fade-in">
+                    <div class="text-center lg:text-left">
+                        <h2 class="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+                            About Me
+                        </h2>
+                        <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-600 mx-auto lg:mx-0 mb-8"></div>
+                    </div>
+                    
+                    <div class="space-y-6 text-gray-700 leading-relaxed">
+                        <p class="text-xl font-medium text-gray-800">
+                            ✨ I'm Holly, a coeliac navigating the world one safe bite at a time. Whether it's traveling to new places, discovering the best gluten-free products, or sharing coeliac-friendly tips, this page is all about making life without gluten as exciting (and delicious) as possible! 🌍🍽️
+                        </p>
+                        
+                        <p class="text-lg">
+                            If you're a fellow coeliac, gluten-free foodie, or just here for the journey—stick around! Let's explore the best of gluten-free living together. 💛 Drop a comment and tell me where you're from!
+                        </p>
+                        
+                        <p class="text-lg">
+                            Traveling as a coeliac is an adventure in itself—navigating new places, hunting down gluten-free finds, and hoping for the best! 🌍✨ One of my favorite parts of exploring is discovering new GF products I'd never find at home. From local bakeries to supermarket gems, every trip is a chance to try something new (and safe!). 🥖🍩
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <a href="#socials" class="inline-flex items-center justify-center px-8 py-3 rounded-full font-bold text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <span class="mr-2">💛</span>
+                            Follow My Journey
+                        </a>
+                        <a href="#instagram" class="inline-flex items-center justify-center px-8 py-3 rounded-full font-bold text-pink-600 bg-white border-2 border-pink-500 hover:bg-pink-50 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <span class="mr-2">📸</span>
+                            See My Adventures
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Section -->
+    <section id="instagram" class="py-16 px-6 container mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: #ec5ca0;">My Instagram</h2>
+            <p class="text-xl max-w-2xl mx-auto">Follow along for daily gluten-free discoveries from around the world!</p>
+        </div>
+        
+        <!-- Instagram Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Instagram Card 1 -->
+            <div class="destination-card bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="insta-header">
+                    <div class="insta-profile-pic">CH</div>
+                    <div>
+                        <div class="insta-username">coeliac_holly</div>
+                        <div class="insta-location">Glasgow, United Kingdom</div>
+                    </div>
+                </div>
+                <img src="/Images/ig1.jpg" alt="Paris GF Bakery" class="destination-image">
+                <div class="insta-actions">
+                    <div class="insta-action-buttons">
+                        <button class="insta-action-btn like-btn" onclick="toggleLike(this)">♡</button>
+                        <button class="insta-action-btn">💬</button>
+                        <button class="insta-action-btn">📤</button>
+                    </div>
+                    <button class="insta-action-btn">🔖</button>
+                </div>
+                <div class="insta-likes">1,234 likes</div>
+                <div class="destination-info">
+                    <div class="insta-caption">
+                        <strong>coeliac_holly</strong> Cosy Night In = Chilli Con Carne 🍛
+Nothing beats a hearty bowl of homemade chilli con carne on a chilly evening! This one’s packed with flavour – minced beef, kidney beans, sweetcorn, chopped tomatoes and a good kick of spice, all served over fluffy white rice.
+
+Super simple, gluten free and absolutely delicious! 😍
+
+Have you made chilli con carne recently? What do you add to yours?
+                    </div>
+                    <div class="insta-hashtags">#GlutenFree #Paris #Travel #CoeliacLife #GFBakery</div>
+                    <div class="insta-time">2 hours ago</div>
+                </div>
+            </div>
+            
+             <!-- Instagram Card 3 -->
+            <div class="destination-card bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="insta-header">
+                    <div class="insta-profile-pic">CH</div>
+                    <div>
+                        <div class="insta-username">coeliac_holly</div>
+                        <div class="insta-location">wagamama</div>
+                    </div>
+                </div>
+                <img src="/Images/ig3.jpg" alt="London GF Afternoon Tea" class="destination-image">
+                <div class="insta-actions">
+                    <div class="insta-action-buttons">
+                        <button class="insta-action-btn like-btn" onclick="toggleLike(this)">♡</button>
+                        <button class="insta-action-btn">💬</button>
+                        <button class="insta-action-btn">📤</button>
+                    </div>
+                    <button class="insta-action-btn">🔖</button>
+                </div>
+                <div class="insta-likes">2,156 likes</div>
+                <div class="destination-info">
+                    <div class="insta-caption">
+                        <strong>coeliac_holly</strong> Wagamama’s Gluten-Free Menu – A Must Try! 🍜✨
+
+I was kindly invited to try the non-gluten menu at Wagamama, and wow – what a fantastic experience from start to finish!
+
+To start, I went for the edamame and lollipop prawn kushiyaki – both absolutely delicious and full of flavour. For my main, I had the chicken raisukaree, a fragrant curry with a coconut twist that I’ll definitely be ordering again!
+
+The staff were brilliant – so knowledgeable about coeliac disease and cross-contamination. A special shoutout to Sam, our lovely server, who made me feel completely safe and well looked after throughout the meal – we loved him! 💛 And a huge thank you to manager Rachel for organising everything.
+
+If you’re coeliac or gluten-free, Wagamama’s got you covered. I’ve attached the non-gluten menu for you to check out too – definitely worth a look if you’re planning a visit! 🙌
+
+We’ll absolutely be back!
+                    </div>
+                    <div class="insta-hashtags">#GlutenFree #London #AfternoonTea #Travel #GFTreats</div>
+                    <div class="insta-time">3 days ago</div>
+                </div>
+            </div>
+
+            <!-- Instagram Card 2 -->
+            <div class="destination-card bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="insta-header">
+                    <div class="insta-profile-pic">CH</div>
+                    <div>
+                        <div class="insta-username">coeliac_holly</div>
+                        <div class="insta-location">Glasgow, United Kingdom</div>
+                    </div>
+                </div>
+                <img src="/Images/ig2.jpg" alt="Tokyo GF Breakfast" class="destination-image">
+                <div class="insta-actions">
+                    <div class="insta-action-buttons">
+                        <button class="insta-action-btn like-btn" onclick="toggleLike(this)">♡</button>
+                        <button class="insta-action-btn">💬</button>
+                        <button class="insta-action-btn">📤</button>
+                    </div>
+                    <button class="insta-action-btn">🔖</button>
+                </div>
+                <div class="insta-likes">987 likes</div>
+                <div class="destination-info">
+                    <div class="insta-caption">
+                        <strong>coeliac_holly</strong> Seafood Pasta Perfection 🍤🍝
+
+Dinner goals right here 😍 I whipped up this dreamy seafood pasta packed with juicy king prawns, squid rings, and loads of fresh veg – think red peppers, mushrooms, red onion and asparagus – all tossed in a herby, garlicky tomato sauce and served over gluten free fusilli. 🌿🍅
+
+Such a satisfying and wholesome meal that’s naturally gluten free and full of flavour. Perfect for a cosy evening in!
+
+Would you try this combo?
+                    </div>
+                    <div class="insta-hashtags">#GlutenFree #Tokyo #Japan #Travel #GFBreakfast</div>
+                    <div class="insta-time">1 day ago</div>
+                </div>
+            </div>
+            
+           
+        </div>
+        
+        <div class="text-center">
+            <a href="https://www.instagram.com/coeliac_holly/" target="_blank" class="inline-block px-8 py-3 rounded-full font-bold text-white hover:bg-opacity-90 transition" style="background-color: #ec5ca0;">
+                Follow Me on Instagram
+            </a>
+        </div>
+    </section>
+
+    <!-- TikTok Section -->
+    <section id="tiktok" class="py-16 px-6 container mx-auto bg-gray-50">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: #ec5ca0;">My TikTok</h2>
+            <p class="text-xl max-w-2xl mx-auto">Watch my latest gluten-free discoveries and food adventures!</p>
+        </div>
+        
+        <!-- TikTok Embeds Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- TikTok Video 1 -->
+            <div class="tiktok-container">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@coeliac_holly/video/7521706553104157974" data-video-id="7521706553104157974" style="max-width: 605px;min-width: 325px;">
+                    <section>
+                        <a target="_blank" title="@coeliac_holly" href="https://www.tiktok.com/@coeliac_holly?refer=embed">@coeliac_holly</a>
+                        Gluten Free Goodies from We Love Cake 🍒🍰 Look at this gorgeous delivery from We love cake! 💖 I was kindly sent their full gluten free range to try – including chocolate orange slices, raspberry ripple slices, sticky toffee slices and two cherry Bakewell tarts… and let me tell you, they were all absolutely delicious! 😍 They even popped in some branded goodies – a cute pen, stickers and a tote bag that I'll definitely be using on my gluten free food hauls 🛍️ Everything is certified gluten free and coeliac safe, with some bakes also being dairy free. So lovely to enjoy sweet treats without the stress! Big thank you to @welovecakeuk – you've made this coeliac very happy 💌
+                        <a title="welovecakeuk" target="_blank" href="https://www.tiktok.com/tag/welovecakeuk?refer=embed">#welovecakeuk</a>
+                        <a title="gifted" target="_blank" href="https://www.tiktok.com/tag/gifted?refer=embed">#gifted</a>
+                        <a title="glutenfreeuk" target="_blank" href="https://www.tiktok.com/tag/glutenfreeuk?refer=embed">#glutenfreeuk</a>
+                        <a title="coeliacfriendly" target="_blank" href="https://www.tiktok.com/tag/coeliacfriendly?refer=embed">#coeliacfriendly</a>
+                        <a title="gfcommunity" target="_blank" href="https://www.tiktok.com/tag/gfcommunity?refer=embed">#gfcommunity</a>
+                        <a title="glutenfreefinds" target="_blank" href="https://www.tiktok.com/tag/glutenfreefinds?refer=embed">#glutenfreefinds</a>
+                        <a title="coeliacliving" target="_blank" href="https://www.tiktok.com/tag/coeliacliving?refer=embed">#coeliacliving</a>
+                        <a title="glutenfreetreats" target="_blank" href="https://www.tiktok.com/tag/glutenfreetreats?refer=embed">#glutenfreetreats</a>
+                        <a title="dairyfreebakes" target="_blank" href="https://www.tiktok.com/tag/dairyfreebakes?refer=embed">#dairyfreebakes</a>
+                        <a target="_blank" title="♬ Alive - JOLIBA" href="https://www.tiktok.com/music/Alive-7516478941339928592?refer=embed">♬ Alive - JOLIBA</a>
+                    </section>
+                </blockquote>
+            </div>
+
+            <!-- TikTok Video 2 -->
+            <div class="tiktok-container">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@coeliac_holly/video/7519523940428041494" data-video-id="7519523940428041494" style="max-width: 605px;min-width: 325px;">
+                    <section>
+                        <a target="_blank" title="@coeliac_holly" href="https://www.tiktok.com/@coeliac_holly?refer=embed">@coeliac_holly</a>
+                        Berry Exciting Delivery 🍓💙 Look at this dreamy box of goodies I just received from Tru Fru! I've been sent their full new range to try and I couldn't be more excited. From dark to milk chocolate and all the fruity combos in between – it's a coeliac's snacking dream come true 😍 How cute is the giant strawberry plush too?! 🥹 I'm diving straight into the chocolate-covered raspberries first – wish me luck choosing a favourite! Have you tried Tru Fru yet? Let me know your top pick 👇
+                        <a title="glutenfreefinds" target="_blank" href="https://www.tiktok.com/tag/glutenfreefinds?refer=embed">#glutenfreefinds</a>
+                        <a title="trufru" target="_blank" href="https://www.tiktok.com/tag/trufru?refer=embed">#trufru</a>
+                        <a title="trufru_uk" target="_blank" href="https://www.tiktok.com/tag/trufru_uk?refer=embed">#trufru_uk</a>
+                        <a title="indulgewithus" target="_blank" href="https://www.tiktok.com/tag/indulgewithus?refer=embed">#indulgewithus</a>
+                        <a title="giftedtrufru" target="_blank" href="https://www.tiktok.com/tag/giftedtrufru?refer=embed">#giftedtrufru</a>
+                        <a title="gifted" target="_blank" href="https://www.tiktok.com/tag/gifted?refer=embed">#gifted</a>
+                        <a title="coeliacfriendly" target="_blank" href="https://www.tiktok.com/tag/coeliacfriendly?refer=embed">#coeliacfriendly</a>
+                        <a title="snackhaul" target="_blank" href="https://www.tiktok.com/tag/snackhaul?refer=embed">#snackhaul</a>
+                        <a title="glutenfreesnacks" target="_blank" href="https://www.tiktok.com/tag/glutenfreesnacks?refer=embed">#glutenfreesnacks</a>
+                        <a title="glutenfreeuk" target="_blank" href="https://www.tiktok.com/tag/glutenfreeuk?refer=embed">#glutenfreeuk</a>
+                        <a title="coeliacfaves" target="_blank" href="https://www.tiktok.com/tag/coeliacfaves?refer=embed">#coeliacfaves</a>
+                        <a title="coeliacliving" target="_blank" href="https://www.tiktok.com/tag/coeliacliving?refer=embed">#coeliacliving</a>
+                        <a title="coeliacheck" target="_blank" href="https://www.tiktok.com/tag/coeliacheck?refer=embed">#coeliacheck</a>
+                        <a title="coeliacfriendlysnacks" target="_blank" href="https://www.tiktok.com/tag/coeliacfriendlysnacks?refer=embed">#coeliacfriendlysnacks</a>
+                        @trüfrü UK
+                        <a target="_blank" title="♬ There She Goes - CYRIL & MOONLGHT & The La's" href="https://www.tiktok.com/music/There-She-Goes-7424014547218565904?refer=embed">♬ There She Goes - CYRIL & MOONLGHT & The La's</a>
+                    </section>
+                </blockquote>
+            </div>
+
+            <!-- TikTok Video 3 -->
+            <div class="tiktok-container">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@coeliac_holly/video/7514725896805272854" data-video-id="7514725896805272854" style="max-width: 605px;min-width: 325px;">
+                    <section>
+                        <a target="_blank" title="@coeliac_holly" href="https://www.tiktok.com/@coeliac_holly?refer=embed">@coeliac_holly</a>
+                        White Rabbit Delivery Day! 🍕🍝🧄 Feeling like the luckiest coeliac today – look at this gluten-free spread from White Rabbit! 😍 I received: 🍕 Pepperoni Pizzetta 🍕 Margherita Pizzetta 🧄 Mozzarella & Roasted Garlic Flatbread 🧄 Roasted Garlic Focaccia 🥔 Potato Gnocchi 🧀 Three Cheese Gnocchi 🍆 Aubergine Parmigiana Ravioli 🌱 Vegana Pizza 🍕 Salame Pizza 🍕 Classic Margherita Pizza … and finished it all off with their dreamy Classic Tiramisu 🍰 Everything is certified gluten free, packed with flavour, and perfect for an easy dinner that doesn't feel like a compromise. Which would you try first?
+                        <a title="glutenfreeuk" target="_blank" href="https://www.tiktok.com/tag/glutenfreeuk?refer=embed">#glutenfreeuk</a>
+                        <a title="coeliacfriendly" target="_blank" href="https://www.tiktok.com/tag/coeliacfriendly?refer=embed">#coeliacfriendly</a>
+                        <a title="whiterabbitpizza" target="_blank" href="https://www.tiktok.com/tag/whiterabbitpizza?refer=embed">#whiterabbitpizza</a>
+                        <a title="glutenfreepizza" target="_blank" href="https://www.tiktok.com/tag/glutenfreepizza?refer=embed">#glutenfreepizza</a>
+                        <a title="glutenfreelife" target="_blank" href="https://www.tiktok.com/tag/glutenfreelife?refer=embed">#glutenfreelife</a>
+                        <a title="gfuk" target="_blank" href="https://www.tiktok.com/tag/gfuk?refer=embed">#gfuk</a>
+                        <a title="coeliacfriendlyfinds" target="_blank" href="https://www.tiktok.com/tag/coeliacfriendlyfinds?refer=embed">#coeliacfriendlyfinds</a>
+                        <a title="glutenfreehaul" target="_blank" href="https://www.tiktok.com/tag/glutenfreehaul?refer=embed">#glutenfreehaul</a>
+                        <a title="glutenfreetreats" target="_blank" href="https://www.tiktok.com/tag/glutenfreetreats?refer=embed">#glutenfreetreats</a>
+                        <a title="coeliacheaven" target="_blank" href="https://www.tiktok.com/tag/coeliacheaven?refer=embed">#coeliacheaven</a>
+                        <a title="coeliacfriendlyoptions" target="_blank" href="https://www.tiktok.com/tag/coeliacfriendlyoptions?refer=embed">#coeliacfriendlyoptions</a>
+                        <a target="_blank" title="♬ Vou Pra Pista - RXPOSO99 & MC Myres" href="https://www.tiktok.com/music/Vou-Pra-Pista-7491691987647055888?refer=embed">♬ Vou Pra Pista - RXPOSO99 & MC Myres</a>
+                    </section>
+                </blockquote>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="https://www.tiktok.com/@coeliac_holly?_t=ZN-8xfGDyQxGYI&_r=1" target="_blank" class="inline-block px-8 py-3 rounded-full font-bold text-white hover:bg-opacity-90 transition" style="background-color: #ec5ca0;">
+                Check My TikTok
+            </a>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section id="info" class="py-16 px-6 bg-gray-50">
+        <div class="container mx-auto flex flex-col md:flex-row-reverse items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0 flex justify-center slide-in-right">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=c=crop&w=800&q=80" alt="Gluten-free food" class="rounded-lg shadow-lg w-full max-w-md h-auto">
+            </div>
+            <div class="md:w-1/2 md:pr-12 slide-in-left">
+                <h2 class="text-3xl md:text-5xl font-bold mb-8" style="color: #ec5ca0;">Gluten-Free Travel Tips</h2>
+                <p class="text-lg mb-6">From discovering hidden GF bakeries to decoding foreign menus, I've built a system that helps coeliacs dine confidently anywhere.</p>
+                <p class="text-lg mb-6">I've partnered with major brands to highlight safe, tasty, and verified options across different cuisines and cultures.</p>
+                <p class="text-lg mb-6">My reviews focus on not just taste but also safety measures, kitchen protocols, and how understanding staff is of cross-contamination.</p>
+                
+                <div class="flex flex-wrap mt-8">
+                    <div class="w-full md:w-1/2 mb-4">
+                        <div class="flex items-center">
+                            <div class="mr-4 text-2xl" style="color: #ec5ca0;"><i class="fas fa-passport"></i></div>
+                            <div>
+                                <h3 class="font-bold">Safe Travel</h3>
+                                <p class="text-sm">Tools & translations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 mb-4">
+                        <div class="flex items-center">
+                            <div class="mr-4 text-2xl" style="color: #ec5ca0;"><i class="fas fa-utensils"></i></div>
+                            <div>
+                                <h3 class="font-bold">Verified Eats</h3>
+                                <p class="text-sm">No cross-contamination</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 mb-4">
+                        <div class="flex items-center">
+                            <div class="mr-4 text-2xl" style="color: #ec5ca0;"><i class="fas fa-heart"></i></div>
+                            <div>
+                                <h3 class="font-bold">Favorite Finds</h3>
+                                <p class="text-sm">Must-try GF spots</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 mb-4">
+                        <div class="flex items-center">
+                            <div class="mr-4 text-2xl" style="color: #ec5ca0;"><i class="fas fa-users"></i></div>
+                            <div>
+                                <h3 class="font-bold">Community</h3>
+                                <p class="text-sm">Join the conversation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 px-6 container mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: #ec5ca0;">Gallery</h2>
+            <p class="text-xl max-w-2xl mx-auto">A taste of my gluten-free adventures around the world</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Gallery Item 1 -->
+            <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="GF Food" class="w-full h-64 object-cover">
+                <div class="p-4 bg-white">
+                    <h3 class="font-bold" style="color: #ec5ca0;">Parisian GF Bakery</h3>
+                    <p class="text-sm text-gray-600">Click to enlarge</p>
+                </div>
+            </div>
+            
+            <!-- Gallery Item 2 -->
+            <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
+                <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="GF Food" class="w-full h-64 object-cover">
+                <div class="p-4 bg-white">
+                    <h3 class="font-bold" style="color: #ec5ca0;">Breakfast in Tokyo</h3>
+                    <p class="text-sm text-gray-600">Click to enlarge</p>
+                </div>
+            </div>
+            
+            <!-- Gallery Item 3 -->
+            <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('https://images.pexels.com/photos/7615801/pexels-photo-7615801.jpeg')">
+                <img src="https://images.pexels.com/photos/7615801/pexels-photo-7615801.jpeg" alt="GF Food" class="w-full h-64 object-cover">
+                <div class="p-4 bg-white">
+                    <h3 class="font-bold" style="color: #ec5ca0;">London GF Afternoon Tea</h3>
+                    <p class="text-sm text-gray-600">Click to enlarge</p>
+                </div>
+            </div>
+            
+            <!-- Gallery Item 4 -->
+            <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('https://images.pexels.com/photos/7615801/pexels-photo-7615801.jpeg')">
+
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="GF Food" class="w-full h-64 object-cover">
+                <div class="p-4 bg-white">
+                    <h3 class="font-bold" style="color: #ec5ca0;">Italian GF Pasta Night</h3>
+                    <p class="text-sm text-gray-600">Click to enlarge</p>
+                </div>
+            </div>
+            
+            <!-- Gallery Item 5 -->
+            <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('https://images.pexels.com/photos/793759/pexels-photo-793759.jpeg')">
+                <img src="https://images.pexels.com/photos/793759/pexels-photo-793759.jpeg" alt="GF Food" class="w-full h-64 object-cover">
+                <div class="p-4 bg-white">
+                    <h3 class="font-bold" style="color: #ec5ca0;">Healthy GF Bowls</h3>
+                    <p class="text-sm text-gray-600">Click to enlarge</p>
+                </div>
+            </div>
+            
+            <!-- Gallery Item 6 -->
+            <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
+                <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="GF Food" class="w-full h-64 object-cover">
+                <div class="p-4 bg-white">
+                    <h3 class="font-bold" style="color: #ec5ca0;">GF Desserts Around the World</h3>
+                    <p class="text-sm text-gray-600">Click to enlarge</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Lightbox -->
+        <div id="lightbox" class="lightbox">
+            <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+            <div class="lightbox-content">
+                <img id="lightbox-img" class="max-w-full max-h-full" src="">
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section id="socials" class="py-16 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: #ec5ca0;">Connect With Me</h2>
+                <p class="text-xl max-w-2xl mx-auto">Join me across platforms for more gluten-free inspiration</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Instagram Card -->
+                <div class="social-card p-8 bg-white rounded-lg shadow-md text-center hover:border-pink-300 border-2 border-transparent transition-all">
+                    <div class="text-5xl mb-4" style="color: #ec5ca0;">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Instagram</h3>
+                    <p class="mb-4">@coeliac_holly</p>
+                    <a href="https://www.instagram.com/coeliac_holly/" target="_blank" class="inline-block px-6 py-2 rounded-full font-bold text-white hover:bg-opacity-90 transition" style="background-color: #ec5ca0;">
+                        Follow
+                    </a>
+                </div>
+                
+                <!-- TikTok Card -->
+                <div class="social-card p-8 bg-white rounded-lg shadow-md text-center hover:border-pink-300 border-2 border-transparent transition-all">
+                    <div class="text-5xl mb-4" style="color: #ec5ca0;">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">TikTok</h3>
+                    <p class="mb-4">@coeliac_holly</p>
+                    <a href="https://www.tiktok.com/@coeliac_holly" target="_blank" class="inline-block px-6 py-2 rounded-full font-bold text-white hover:bg-opacity-90 transition" style="background-color: #ec5ca0;">
+                        Follow
+                    </a>
+                </div>
+                
+                <!-- Linktree Card -->
+                <div class="social-card p-8 bg-white rounded-lg shadow-md text-center hover:border-pink-300 border-2 border-transparent transition-all">
+                    <div class="text-5xl mb-4" style="color: #ec5ca0;">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Linktree</h3>
+                    <p class="mb-4">All my links in one place</p>
+                    <a href="https://linktr.ee/coeliacholly" target="_blank" class="inline-block px-6 py-2 rounded-full font-bold text-white hover:bg-opacity-90 transition" style="background-color: #ec5ca0;">
+                        Visit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-12 px-6 bg-black text-white">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0">
+                    <h2 class="text-3xl font-bold mb-4" style="color: #ec5ca0;">Coeliac_Holly</h2>
+                    <p class="mb-4">Gluten-free food & travel reviews worldwide</p>
+                    <p>© 2023 Coeliac Holly. All rights reserved.</p>
+                </div>
+                
+                <div class="mb-8 md:mb-0 text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <div class="flex flex-col space-y-2">
+                        <a href="#home" class="hover:text-pink-300 transition">Home</a>
+                        <a href="#about" class="hover:text-pink-300 transition">About</a>
+                        <a href="#instagram" class="hover:text-pink-300 transition">Instagram</a>
+                        <a href="#info" class="hover:text-pink-300 transition">Info</a>
+                        <a href="#gallery" class="hover:text-pink-300 transition">Gallery</a>
+                        <a href="#socials" class="hover:text-pink-300 transition">Socials</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-center md:text-left">Contact</h3>
+                    <p class="mb-4">For collaborations & inquiries:</p>
+                    <a href="mailto:hello@coeliacholly.com" class="hover:text-pink-300 transition">hello@coeliacholly.com</a>
+                    
+                    <div class="flex justify-center md:justify-start space-x-4 mt-4">
+                        <a href="https://www.instagram.com/coeliac_holly/" target="_blank" class="text-2xl hover:text-pink-300 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@coeliac_holly" target="_blank" class="text-2xl hover:text-pink-300 transition"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://linktr.ee/coeliacholly" target="_blank" class="text-2xl hover:text-pink-300 transition"><i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script  async src="https://www.tiktok.com/embed.js">
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('button.md\\:hidden');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+        
+        // Lightbox functionality
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imageSrc;
+            lightbox.style.display = 'block';
+        }
+        
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+        }
+        
+        // Close lightbox when clicking outside the image
+        window.addEventListener('click', function(event) {
+            const lightbox = document.getElementById('lightbox');
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Animation on scroll
+        const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+        
+        function checkPosition() {
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const positionFromTop = elements[i].getBoundingClientRect().top;
+                
+                if (positionFromTop - window.innerHeight <= -100) {
+                    if (!element.classList.contains('is-visible')) {
+                        element.classList.add('is-visible');
+                    }
+                }
+            }
+        }
+        
+        window.addEventListener('scroll', checkPosition);
+        checkPosition(); // Check on page load
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+                // Enhanced smooth scrolling and active nav states
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for nav links
+            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 80; // Account for fixed nav
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Active nav link highlighting
+            function updateActiveNavLink() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Update active link on scroll
+            window.addEventListener('scroll', updateActiveNavLink);
+            updateActiveNavLink(); // Initial call
+        });
+        
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
+
+      
