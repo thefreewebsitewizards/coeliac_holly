@@ -259,6 +259,7 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(236, 92, 160, 0.1);
             transition: all 0.3s ease;
+            z-index: 100;
         }
         
         /* Logo Styles */
@@ -383,9 +384,236 @@
             pointer-events: none;
         }
 
+        /* Updated section backgrounds to allow bubbles to show through */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(253, 242, 248, 0.8) 0%, rgba(243, 232, 255, 0.8) 100%) !important;
+        }
+        
+        .about-section {
+            background: linear-gradient(135deg, rgba(236, 92, 160, 0.1) 0%, rgba(243, 232, 255, 0.8) 100%) !important;
+        }
+        
+        .instagram-section {
+            background: rgba(255, 255, 255, 0.7) !important;
+        }
+        
+        .socials-section {
+            background: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        /* Floating Bubbles Background - FIXED VERSION */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -10;
+            pointer-events: none;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            display: block;
+            border-radius: 50%;
+            background: rgba(255, 182, 193, 0.6);
+            animation: float-up var(--duration) var(--delay) ease-in infinite;
+        }
+        
+        .bubble::before {
+            position: absolute;
+            content: '';
+            top: 2px;
+            left: 2px;
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
+            border-radius: inherit;
+            background: inherit;
+            filter: blur(1px);
+            animation: var(--sway) var(--sway-duration) var(--sway-delay) ease-in-out alternate infinite;
+        }
+        
+        /* Individual Bubble Styles with Higher Opacity */
+        .bubble:nth-child(1) { 
+            left: 10%; 
+            width: 40px; 
+            height: 40px; 
+            background: rgba(255, 182, 193, 0.7);
+            --duration: 8s; 
+            --delay: 0s; 
+            --sway: sway-left-to-right; 
+            --sway-duration: 4s; 
+            --sway-delay: 0s; 
+        }
+        
+        .bubble:nth-child(2) { 
+            left: 20%; 
+            width: 60px; 
+            height: 60px; 
+            background: rgba(221, 160, 221, 0.7);
+            --duration: 10s; 
+            --delay: 1s; 
+            --sway: sway-right-to-left; 
+            --sway-duration: 5s; 
+            --sway-delay: 1s; 
+        }
+        
+        .bubble:nth-child(3) { 
+            left: 35%; 
+            width: 30px; 
+            height: 30px; 
+            background: rgba(255, 218, 185, 0.7);
+            --duration: 7s; 
+            --delay: 2s; 
+            --sway: sway-left-to-right; 
+            --sway-duration: 3s; 
+            --sway-delay: 0.5s; 
+        }
+        
+        .bubble:nth-child(4) { 
+            left: 50%; 
+            width: 80px; 
+            height: 80px; 
+            background: rgba(255, 192, 203, 0.6);
+            --duration: 12s; 
+            --delay: 0.5s; 
+            --sway: sway-right-to-left; 
+            --sway-duration: 6s; 
+            --sway-delay: 2s; 
+        }
+        
+        .bubble:nth-child(5) { 
+            left: 65%; 
+            width: 50px; 
+            height: 50px; 
+            background: rgba(230, 230, 250, 0.8);
+            --duration: 9s; 
+            --delay: 3s; 
+            --sway: sway-left-to-right; 
+            --sway-duration: 4s; 
+            --sway-delay: 1.5s; 
+        }
+        
+        .bubble:nth-child(6) { 
+            left: 75%; 
+            width: 35px; 
+            height: 35px; 
+            background: rgba(255, 228, 225, 0.7);
+            --duration: 11s; 
+            --delay: 1.5s; 
+            --sway: sway-right-to-left; 
+            --sway-duration: 5s; 
+            --sway-delay: 0s; 
+        }
+        
+        .bubble:nth-child(7) { 
+            left: 85%; 
+            width: 45px; 
+            height: 45px; 
+            background: rgba(255, 182, 193, 0.6);
+            --duration: 8s; 
+            --delay: 2.5s; 
+            --sway: sway-left-to-right; 
+            --sway-duration: 3.5s; 
+            --sway-delay: 1s; 
+        }
+        
+        .bubble:nth-child(8) { 
+            left: 5%; 
+            width: 70px; 
+            height: 70px; 
+            background: rgba(255, 240, 245, 0.8);
+            --duration: 13s; 
+            --delay: 4s; 
+            --sway: sway-right-to-left; 
+            --sway-duration: 6s; 
+            --sway-delay: 2.5s; 
+        }
+        
+        .bubble:nth-child(9) { 
+            left: 25%; 
+            width: 25px; 
+            height: 25px; 
+            background: rgba(221, 160, 221, 0.7);
+            --duration: 6s; 
+            --delay: 0.8s; 
+            --sway: sway-left-to-right; 
+            --sway-duration: 4s; 
+            --sway-delay: 0.3s; 
+        }
+        
+        .bubble:nth-child(10) { 
+            left: 90%; 
+            width: 55px; 
+            height: 55px; 
+            background: rgba(255, 218, 185, 0.6);
+            --duration: 10s; 
+            --delay: 3.5s; 
+            --sway: sway-right-to-left; 
+            --sway-duration: 5s; 
+            --sway-delay: 1.8s; 
+        }
+        
+        @keyframes float-up {
+            from {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-120vh);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes sway-left-to-right {
+            from {
+                transform: translateX(-30px);
+            }
+            to {
+                transform: translateX(30px);
+            }
+        }
+        
+        @keyframes sway-right-to-left {
+            from {
+                transform: translateX(30px);
+            }
+            to {
+                transform: translateX(-30px);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bubble {
+                transform: scale(0.7);
+            }
+        }
+
     </style>
 </head>
 <body class="bg-white text-black">
+    <!-- Floating Bubbles Background -->
+    <div class="bubbles">
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+    </div>
         <!-- Navigation -->
     <nav class="fixed top-0 w-full shadow-md z-50 fade-in">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -418,7 +646,7 @@
     </div>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 px-6 bg-gradient-to-br from-pink-50 to-purple-50">
+    <section id="home" class="hero-section pt-24 pb-16 md:pt-32 md:pb-24 px-6">
         <div class="container mx-auto">
             <div class="flex flex-col md:flex-row items-center">
                 <div class="md:w-1/2 mb-12 md:mb-0 slide-in-left">
@@ -438,7 +666,7 @@
     </section>
 
         <!-- About Section -->
-    <section id="about" class="py-20 px-6 bg-gradient-to-br from-pink-500 to-purple-50">
+    <section id="about" class="about-section py-20 px-6">
         <div class="container mx-auto">
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <!-- Image Section -->
@@ -487,7 +715,7 @@
     </section>
 
     <!-- Instagram Section -->
-    <section id="instagram" class="py-16 px-6 container mx-auto">
+    <section id="instagram" class="instagram-section py-16 px-6 container mx-auto">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: #ec5ca0;">My Instagram</h2>
             <p class="text-xl max-w-2xl mx-auto">Follow along for daily gluten-free discoveries from around the world!</p>
@@ -823,7 +1051,7 @@ Would you try this combo?
     </section>
 
     <!-- Social Media Section -->
-    <section id="socials" class="py-16 px-6 bg-gray-50">
+    <section id="socials" class="socials-section py-16 px-6">
         <div class="container mx-auto">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: #ec5ca0;">Connect With Me</h2>
