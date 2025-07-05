@@ -1135,16 +1135,17 @@ Would you try this combo?
         </div>
     </footer>
 
-    <script  async src="https://www.tiktok.com/embed.js">
-        // Mobile menu toggle
-        const mobileMenuButton = document.querySelector('button.md\\:hidden');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        mobileMenuButton.addEventListener('click', function() {
+        <script async src="https://www.tiktok.com/embed.js"></script>
+    
+    <script>
+        // Mobile menu toggle functions
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
             mobileMenu.classList.toggle('hidden');
-        });
+        }
         
         function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
             mobileMenu.classList.add('hidden');
         }
         
@@ -1161,62 +1162,69 @@ Would you try this combo?
             lightbox.style.display = 'none';
         }
         
-        // Close lightbox when clicking outside the image
-        window.addEventListener('click', function(event) {
-            const lightbox = document.getElementById('lightbox');
-            if (event.target === lightbox) {
-                closeLightbox();
-            }
-        });
-        
-        // Animation on scroll
-        const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
-        
-        function checkPosition() {
-            for (let i = 0; i < elements.length; i++) {
-                const element = elements[i];
-                const positionFromTop = elements[i].getBoundingClientRect().top;
-                
-                if (positionFromTop - window.innerHeight <= -100) {
-                    if (!element.classList.contains('is-visible')) {
-                        element.classList.add('is-visible');
-                    }
-                }
+        // Like button functionality
+        function toggleLike(button) {
+            const isLiked = button.classList.contains('liked');
+            const likesElement = button.closest('.destination-card')?.querySelector('.insta-likes');
+            
+            if (!likesElement) return;
+            
+            const currentLikes = parseInt(likesElement.textContent.replace(/[^0-9]/g, '')) || 0;
+            
+            if (isLiked) {
+                button.classList.remove('liked');
+                button.textContent = '♡';
+                likesElement.textContent = `${(currentLikes - 1).toLocaleString()} likes`;
+            } else {
+                button.classList.add('liked');
+                button.textContent = '❤️';
+                likesElement.textContent = `${(currentLikes + 1).toLocaleString()} likes`;
             }
         }
         
-        window.addEventListener('scroll', checkPosition);
-        checkPosition(); // Check on page load
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            });
-        });
-                // Enhanced smooth scrolling and active nav states
+        // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scrolling for nav links
-            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            // Close lightbox when clicking outside the image
+            window.addEventListener('click', function(event) {
+                const lightbox = document.getElementById('lightbox');
+                if (event.target === lightbox) {
+                    closeLightbox();
+                }
+            });
             
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
+            // Animation on scroll
+            const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+            
+            function checkPosition() {
+                for (let i = 0; i < elements.length; i++) {
+                    const element = elements[i];
+                    const positionFromTop = elements[i].getBoundingClientRect().top;
                     
-                    if (targetSection) {
-                        const offsetTop = targetSection.offsetTop - 80; // Account for fixed nav
+                    if (positionFromTop - window.innerHeight <= -100) {
+                        if (!element.classList.contains('is-visible')) {
+                            element.classList.add('is-visible');
+                        }
+                    }
+                }
+            }
+            
+            window.addEventListener('scroll', checkPosition);
+            checkPosition(); // Check on page load
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    // Close mobile menu if it's open
+                    closeMobileMenu();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
                         window.scrollTo({
-                            top: offsetTop,
+                            top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
                     }
@@ -1248,18 +1256,17 @@ Would you try this combo?
             // Update active link on scroll
             window.addEventListener('scroll', updateActiveNavLink);
             updateActiveNavLink(); // Initial call
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const menuButton = document.querySelector('button[onclick="toggleMobileMenu()"]');
+                
+                if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
         });
-        
-        // Mobile menu functions
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('hidden');
-        }
-        
-        function closeMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.add('hidden');
-        }
     </script>
 </body>
 </html>
