@@ -598,9 +598,140 @@
             }
         }
 
+        /* Simple Carousel Styles */
+        .simple-carousel {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
         .carousel-container {
             position: relative;
-            max-width: 100%;
+            background: transparent;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: none;
+        }
+        
+        .carousel-images {
+            position: relative;
+            width: 100%;
+            height: 280px;
+        }
+        
+        .carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            background: transparent;
+        }
+        
+        .carousel-image.active {
+            opacity: 1;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ec5ca0;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-nav.prev {
+            left: 10px;
+        }
+        
+        .carousel-nav.next {
+            right: 10px;
+        }
+        
+        .carousel-dots {
+            text-align: center;
+            padding: 15px 0;
+            background: transparent;
+        }
+        
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 4px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .dot.active,
+        .dot:hover {
+            background-color: #ec5ca0;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .carousel-images {
+                height: 240px;
+            }
+            
+            .carousel-nav {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .carousel-nav.prev {
+                left: 8px;
+            }
+            
+            .carousel-nav.next {
+                right: 8px;
+            }
+            
+            .dot {
+                height: 10px;
+                width: 10px;
+                margin: 0 3px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .carousel-images {
+                height: 200px;
+            }
+            
+            .carousel-nav {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+            
+            .dot {
+                height: 8px;
+                width: 8px;
+                margin: 0 2px;
+            }
         }
         
         .carousel-btn {
@@ -1094,284 +1225,191 @@ Would you try this combo?
     </section>
 
   <!-- Tips & Advice Section -->
-    <section id="tips" class="py-16 px-4 md:px-6 container mx-auto">
-        <div class="text-center mb-8 md:mb-12">
-            <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: #ec5ca0;">Tips & Advice</h2>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto">Essential guidance for living gluten-free and traveling safely</p>
+<section id="tips" class="py-16 px-4 md:px-6 container mx-auto">
+    <div class="text-center mb-8 md:mb-12">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: #ec5ca0;">Tips & Advice</h2>
+        <p class="text-lg md:text-xl max-w-2xl mx-auto">Essential guidance for living gluten-free and traveling safely</p>
+    </div>
+    
+    <!-- Carousel Grid Layout -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+        <!-- Coeliac Tips Carousel -->
+        <div class="carousel-section">
+            <div class="text-center mb-4">
+                <h3 class="text-lg md:text-xl font-bold mb-2" style="color: #ec5ca0;">Coeliac Living Tips</h3>
+                <p class="text-sm text-gray-600">Essential advice for managing coeliac disease</p>
+            </div>
+            <div class="simple-carousel" data-carousel="coeliac">
+                <div class="carousel-container">
+                    <div class="carousel-images">
+                        <img src="/Images/Coeliac tip-1.jpg" alt="Coeliac Tip 1" class="carousel-image active">
+                        <img src="/Images/Coeliac tip-2.jpg" alt="Coeliac Tip 2" class="carousel-image">
+                        <img src="/Images/Coeliac tip-3.jpg" alt="Coeliac Tip 3" class="carousel-image">
+                        <img src="/Images/Coeliac tip-4.jpg" alt="Coeliac Tip 4" class="carousel-image">
+                        <img src="/Images/Coeliac tip-5.jpg" alt="Coeliac Tip 5" class="carousel-image">
+                        <img src="/Images/Coeliac tip-6.jpg" alt="Coeliac Tip 6" class="carousel-image">
+                    </div>
+                    <button class="carousel-nav prev" onclick="changeSlide('coeliac', -1)">‹</button>
+                    <button class="carousel-nav next" onclick="changeSlide('coeliac', 1)">›</button>
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="currentSlide('coeliac', 1)"></span>
+                    <span class="dot" onclick="currentSlide('coeliac', 2)"></span>
+                    <span class="dot" onclick="currentSlide('coeliac', 3)"></span>
+                    <span class="dot" onclick="currentSlide('coeliac', 4)"></span>
+                    <span class="dot" onclick="currentSlide('coeliac', 5)"></span>
+                    <span class="dot" onclick="currentSlide('coeliac', 6)"></span>
+                </div>
+            </div>
         </div>
         
-        <!-- Carousel Grid Layout -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-            <!-- Coeliac Tips Carousel -->
-            <div class="carousel-section">
-                <div class="text-center mb-4 md:mb-6">
-                    <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-2" style="color: #ec5ca0;">Coeliac Living Tips</h3>
-                    <p class="text-xs md:text-sm text-gray-600">Essential advice for managing coeliac disease</p>
-                </div>
-                <div class="carousel-container relative">
-                    <div class="carousel overflow-hidden rounded-lg shadow-lg" id="coeliac-carousel">
-                        <div class="carousel-track flex transition-transform duration-300 ease-in-out">
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Coeliac tip-1.jpg" alt="Coeliac Tip 1" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Coeliac tip-2.jpg" alt="Coeliac Tip 2" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Coeliac tip-3.jpg" alt="Coeliac Tip 3" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Coeliac tip-4.jpg" alt="Coeliac Tip 4" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Coeliac tip-5.jpg" alt="Coeliac Tip 5" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Coeliac tip-6.jpg" alt="Coeliac Tip 6" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-btn carousel-prev absolute left-1 md:left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="prevSlide('coeliac-carousel')">
-                        <i class="fas fa-chevron-left" style="color: #ec5ca0;"></i>
-                    </button>
-                    <button class="carousel-btn carousel-next absolute right-1 md:right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="nextSlide('coeliac-carousel')">
-                        <i class="fas fa-chevron-right" style="color: #ec5ca0;"></i>
-                    </button>
-                    <div class="carousel-indicators flex justify-center mt-2 md:mt-3 space-x-1" id="coeliac-indicators">
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('coeliac-carousel', 0)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('coeliac-carousel', 1)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('coeliac-carousel', 2)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('coeliac-carousel', 3)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('coeliac-carousel', 4)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('coeliac-carousel', 5)"></button>
-                    </div>
-                </div>
+        <!-- Gluten-Free Diet Tips Carousel -->
+        <div class="carousel-section">
+            <div class="text-center mb-4">
+                <h3 class="text-lg md:text-xl font-bold mb-2" style="color: #ec5ca0;">Gluten-Free Diet Tips</h3>
+                <p class="text-sm text-gray-600">Navigate your gluten-free journey with confidence</p>
             </div>
-            
-            <!-- Gluten-Free Diet Tips Carousel -->
-            <div class="carousel-section">
-                <div class="text-center mb-6">
-                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: #ec5ca0;">Gluten-Free Diet Tips</h3>
-                    <p class="text-sm text-gray-600">Navigate your gluten-free journey with confidence</p>
+            <div class="simple-carousel" data-carousel="gluten">
+                <div class="carousel-container">
+                    <div class="carousel-images">
+                        <img src="/Images/gluten-free tip1.jpg" alt="Gluten-Free Tip 1" class="carousel-image active">
+                        <img src="/Images/gluten-free tip2.jpg" alt="Gluten-Free Tip 2" class="carousel-image">
+                        <img src="/Images/gluten-free tip3.jpg" alt="Gluten-Free Tip 3" class="carousel-image">
+                        <img src="/Images/gluten-free tip4.jpg" alt="Gluten-Free Tip 4" class="carousel-image">
+                        <img src="/Images/gluten-free tip5.jpg" alt="Gluten-Free Tip 5" class="carousel-image">
+                        <img src="/Images/gluten-free tip6.jpg" alt="Gluten-Free Tip 6" class="carousel-image">
+                    </div>
+                    <button class="carousel-nav prev" onclick="changeSlide('gluten', -1)">‹</button>
+                    <button class="carousel-nav next" onclick="changeSlide('gluten', 1)">›</button>
                 </div>
-                <div class="carousel-container relative">
-                    <div class="carousel overflow-hidden rounded-lg shadow-lg" id="gluten-carousel">
-                        <div class="carousel-track flex transition-transform duration-300 ease-in-out">
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/gluten-free tip1.jpg" alt="Gluten-Free Tip 1" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/gluten-free tip2.jpg" alt="Gluten-Free Tip 2" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/gluten-free tip3.jpg" alt="Gluten-Free Tip 3" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/gluten-free tip4.jpg" alt="Gluten-Free Tip 4" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/gluten-free tip5.jpg" alt="Gluten-Free Tip 5" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/gluten-free tip6.jpg" alt="Gluten-Free Tip 6" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-btn carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="prevSlide('gluten-carousel')">
-                        <i class="fas fa-chevron-left text-sm" style="color: #ec5ca0;"></i>
-                    </button>
-                    <button class="carousel-btn carousel-next absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="nextSlide('gluten-carousel')">
-                        <i class="fas fa-chevron-right text-sm" style="color: #ec5ca0;"></i>
-                    </button>
-                    <div class="carousel-indicators flex justify-center mt-3 space-x-1" id="gluten-indicators">
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('gluten-carousel', 0)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('gluten-carousel', 1)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('gluten-carousel', 2)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('gluten-carousel', 3)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('gluten-carousel', 4)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('gluten-carousel', 5)"></button>
-                    </div>
-                </div>
-            </div>
-            
-<!-- Travel Tips Carousel -->
-            <div class="carousel-section">
-                <div class="text-center mb-4 md:mb-6">
-                    <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-2" style="color: #ec5ca0;">Travel Tips</h3>
-                    <p class="text-xs md:text-sm text-gray-600">Safe gluten-free travel around the world</p>
-                </div>
-                <div class="carousel-container relative">
-                    <div class="carousel overflow-hidden rounded-lg shadow-lg" id="travel-carousel">
-                        <div class="carousel-track flex transition-transform duration-300 ease-in-out">
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Travel tip-1.jpg" alt="Travel Tip 1" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Travel tip-2.jpg" alt="Travel Tip 2" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Travel tip-3.jpg" alt="Travel Tip 3" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Travel tip-4.jpg" alt="Travel Tip 4" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Travel tip-5.jpg" alt="Travel Tip 5" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-btn carousel-prev absolute left-1 md:left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="prevSlide('travel-carousel')">
-                        <i class="fas fa-chevron-left" style="color: #ec5ca0;"></i>
-                    </button>
-                    <button class="carousel-btn carousel-next absolute right-1 md:right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="nextSlide('travel-carousel')">
-                        <i class="fas fa-chevron-right" style="color: #ec5ca0;"></i>
-                    </button>
-                    <div class="carousel-indicators flex justify-center mt-2 md:mt-3 space-x-1" id="travel-indicators">
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('travel-carousel', 0)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('travel-carousel', 1)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('travel-carousel', 2)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('travel-carousel', 3)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('travel-carousel', 4)"></button>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <!-- Gluten Free Habits Tips Carousel -->
-            <div class="carousel-section">
-                <div class="text-center mb-6">
-                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: #ec5ca0;">Gluten Free Habits</h3>
-                    <p class="text-sm text-gray-600">Building healthy gluten-free lifestyle habits</p>
-                </div>
-                <div class="carousel-container relative">
-                    <div class="carousel overflow-hidden rounded-lg shadow-lg" id="habits-carousel">
-                        <div class="carousel-track flex transition-transform duration-300 ease-in-out">
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten free habits tip-1.jpg" alt="Gluten Free Habits Tip 1" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten free habits tip-2.jpg" alt="Gluten Free Habits Tip 2" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten free habits tip-3.jpg" alt="Gluten Free Habits Tip 3" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten free habits tip-4.jpg" alt="Gluten Free Habits Tip 4" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten free habits tip-5.jpg" alt="Gluten Free Habits Tip 5" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten free habits tip-6.jpg" alt="Gluten Free Habits Tip 6" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-btn carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="prevSlide('habits-carousel')">
-                        <i class="fas fa-chevron-left text-sm" style="color: #ec5ca0;"></i>
-                    </button>
-                    <button class="carousel-btn carousel-next absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="nextSlide('habits-carousel')">
-                        <i class="fas fa-chevron-right text-sm" style="color: #ec5ca0;"></i>
-                    </button>
-                    <div class="carousel-indicators flex justify-center mt-3 space-x-1" id="habits-indicators">
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('habits-carousel', 0)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('habits-carousel', 1)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('habits-carousel', 2)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('habits-carousel', 3)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('habits-carousel', 4)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('habits-carousel', 5)"></button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Gluten in Disguise Tips Carousel -->
-            <div class="carousel-section">
-                <div class="text-center mb-6">
-                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: #ec5ca0;">Gluten in Disguise</h3>
-                    <p class="text-sm text-gray-600">Spotting hidden gluten in everyday products</p>
-                </div>
-                <div class="carousel-container relative">
-                    <div class="carousel overflow-hidden rounded-lg shadow-lg" id="disguise-carousel">
-                        <div class="carousel-track flex transition-transform duration-300 ease-in-out">
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten in Disguise tip-1.jpg" alt="Gluten in Disguise Tip 1" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten in Disguise tip-2.jpg" alt="Gluten in Disguise Tip 2" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten in Disguise tip-3.jpg" alt="Gluten in Disguise Tip 3" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten in Disguise tip-4.jpg" alt="Gluten in Disguise Tip 4" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/Gluten in Disguise tip-5.jpg" alt="Gluten in Disguise Tip 5" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-btn carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="prevSlide('disguise-carousel')">
-                        <i class="fas fa-chevron-left text-sm" style="color: #ec5ca0;"></i>
-                    </button>
-                    <button class="carousel-btn carousel-next absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="nextSlide('disguise-carousel')">
-                        <i class="fas fa-chevron-right text-sm" style="color: #ec5ca0;"></i>
-                    </button>
-                    <div class="carousel-indicators flex justify-center mt-3 space-x-1" id="disguise-indicators">
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('disguise-carousel', 0)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('disguise-carousel', 1)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('disguise-carousel', 2)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('disguise-carousel', 3)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('disguise-carousel', 4)"></button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Ways to Cope When Gluten Free Tips Carousel -->
-            <div class="carousel-section">
-                <div class="text-center mb-6">
-                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: #ec5ca0;">Ways to Cope</h3>
-                    <p class="text-sm text-gray-600">Emotional support for gluten-free living</p>
-                </div>
-                <div class="carousel-container relative">
-                    <div class="carousel overflow-hidden rounded-lg shadow-lg" id="cope-carousel">
-                        <div class="carousel-track flex transition-transform duration-300 ease-in-out">
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/ways to cope when gluten free Tip1.jpg" alt="Ways to Cope Tip 1" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/ways to cope when gluten free Tip2.jpg" alt="Ways to Cope Tip 2" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/ways to cope when gluten free Tip3.jpg" alt="Ways to Cope Tip 3" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/ways to cope when gluten free Tip4.jpg" alt="Ways to Cope Tip 4" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/ways to cope when gluten free Tip5.jpg" alt="Ways to Cope Tip 5" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                            <div class="carousel-slide min-w-full">
-                                <img src="/Images/ways to cope when gluten free Tip6.jpg" alt="Ways to Cope Tip 6" class="w-full h-64 object-contain bg-gray-50">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-btn carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="prevSlide('cope-carousel')">
-                        <i class="fas fa-chevron-left text-sm" style="color: #ec5ca0;"></i>
-                    </button>
-                    <button class="carousel-btn carousel-next absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full shadow-lg transition-all" onclick="nextSlide('cope-carousel')">
-                        <i class="fas fa-chevron-right text-sm" style="color: #ec5ca0;"></i>
-                    </button>
-                    <div class="carousel-indicators flex justify-center mt-3 space-x-1" id="cope-indicators">
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('cope-carousel', 0)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('cope-carousel', 1)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('cope-carousel', 2)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('cope-carousel', 3)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('cope-carousel', 4)"></button>
-                        <button class="indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-pink-400 transition-colors" onclick="goToSlide('cope-carousel', 5)"></button>
-                    </div>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="currentSlide('gluten', 1)"></span>
+                    <span class="dot" onclick="currentSlide('gluten', 2)"></span>
+                    <span class="dot" onclick="currentSlide('gluten', 3)"></span>
+                    <span class="dot" onclick="currentSlide('gluten', 4)"></span>
+                    <span class="dot" onclick="currentSlide('gluten', 5)"></span>
+                    <span class="dot" onclick="currentSlide('gluten', 6)"></span>
                 </div>
             </div>
         </div>
-    </section>
+        
+        <!-- Travel Tips Carousel -->
+        <div class="carousel-section">
+            <div class="text-center mb-4">
+                <h3 class="text-lg md:text-xl font-bold mb-2" style="color: #ec5ca0;">Travel Tips</h3>
+                <p class="text-sm text-gray-600">Safe gluten-free travel around the world</p>
+            </div>
+            <div class="simple-carousel" data-carousel="travel">
+                <div class="carousel-container">
+                    <div class="carousel-images">
+                        <img src="/Images/Travel tip-1.jpg" alt="Travel Tip 1" class="carousel-image active">
+                        <img src="/Images/Travel tip-2.jpg" alt="Travel Tip 2" class="carousel-image">
+                        <img src="/Images/Travel tip-3.jpg" alt="Travel Tip 3" class="carousel-image">
+                        <img src="/Images/Travel tip-4.jpg" alt="Travel Tip 4" class="carousel-image">
+                        <img src="/Images/Travel tip-5.jpg" alt="Travel Tip 5" class="carousel-image">
+                    </div>
+                    <button class="carousel-nav prev" onclick="changeSlide('travel', -1)">‹</button>
+                    <button class="carousel-nav next" onclick="changeSlide('travel', 1)">›</button>
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="currentSlide('travel', 1)"></span>
+                    <span class="dot" onclick="currentSlide('travel', 2)"></span>
+                    <span class="dot" onclick="currentSlide('travel', 3)"></span>
+                    <span class="dot" onclick="currentSlide('travel', 4)"></span>
+                    <span class="dot" onclick="currentSlide('travel', 5)"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gluten Free Habits Tips Carousel -->
+        <div class="carousel-section">
+            <div class="text-center mb-4">
+                <h3 class="text-lg md:text-xl font-bold mb-2" style="color: #ec5ca0;">Gluten Free Habits</h3>
+                <p class="text-sm text-gray-600">Building healthy gluten-free lifestyle habits</p>
+            </div>
+            <div class="simple-carousel" data-carousel="habits">
+                <div class="carousel-container">
+                    <div class="carousel-images">
+                        <img src="/Images/Gluten free habits tip-1.jpg" alt="Gluten Free Habits Tip 1" class="carousel-image active">
+                        <img src="/Images/Gluten free habits tip-2.jpg" alt="Gluten Free Habits Tip 2" class="carousel-image">
+                        <img src="/Images/Gluten free habits tip-3.jpg" alt="Gluten Free Habits Tip 3" class="carousel-image">
+                        <img src="/Images/Gluten free habits tip-4.jpg" alt="Gluten Free Habits Tip 4" class="carousel-image">
+                        <img src="/Images/Gluten free habits tip-5.jpg" alt="Gluten Free Habits Tip 5" class="carousel-image">
+                        <img src="/Images/Gluten free habits tip-6.jpg" alt="Gluten Free Habits Tip 6" class="carousel-image">
+                    </div>
+                    <button class="carousel-nav prev" onclick="changeSlide('habits', -1)">‹</button>
+                    <button class="carousel-nav next" onclick="changeSlide('habits', 1)">›</button>
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="currentSlide('habits', 1)"></span>
+                    <span class="dot" onclick="currentSlide('habits', 2)"></span>
+                    <span class="dot" onclick="currentSlide('habits', 3)"></span>
+                    <span class="dot" onclick="currentSlide('habits', 4)"></span>
+                    <span class="dot" onclick="currentSlide('habits', 5)"></span>
+                    <span class="dot" onclick="currentSlide('habits', 6)"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gluten in Disguise Tips Carousel -->
+        <div class="carousel-section">
+            <div class="text-center mb-4">
+                <h3 class="text-lg md:text-xl font-bold mb-2" style="color: #ec5ca0;">Gluten in Disguise</h3>
+                <p class="text-sm text-gray-600">Spotting hidden gluten in everyday products</p>
+            </div>
+            <div class="simple-carousel" data-carousel="disguise">
+                <div class="carousel-container">
+                    <div class="carousel-images">
+                        <img src="/Images/Gluten in Disguise tip-1.jpg" alt="Gluten in Disguise Tip 1" class="carousel-image active">
+                        <img src="/Images/Gluten in Disguise tip-2.jpg" alt="Gluten in Disguise Tip 2" class="carousel-image">
+                        <img src="/Images/Gluten in Disguise tip-3.jpg" alt="Gluten in Disguise Tip 3" class="carousel-image">
+                        <img src="/Images/Gluten in Disguise tip-4.jpg" alt="Gluten in Disguise Tip 4" class="carousel-image">
+                        <img src="/Images/Gluten in Disguise tip-5.jpg" alt="Gluten in Disguise Tip 5" class="carousel-image">
+                    </div>
+                    <button class="carousel-nav prev" onclick="changeSlide('disguise', -1)">‹</button>
+                    <button class="carousel-nav next" onclick="changeSlide('disguise', 1)">›</button>
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="currentSlide('disguise', 1)"></span>
+                    <span class="dot" onclick="currentSlide('disguise', 2)"></span>
+                    <span class="dot" onclick="currentSlide('disguise', 3)"></span>
+                    <span class="dot" onclick="currentSlide('disguise', 4)"></span>
+                    <span class="dot" onclick="currentSlide('disguise', 5)"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ways to Cope When Gluten Free Tips Carousel -->
+        <div class="carousel-section">
+            <div class="text-center mb-4">
+                <h3 class="text-lg md:text-xl font-bold mb-2" style="color: #ec5ca0;">Ways to Cope</h3>
+                <p class="text-sm text-gray-600">Coping strategies for gluten-free living</p>
+            </div>
+            <div class="simple-carousel" data-carousel="cope">
+                <div class="carousel-container">
+                    <div class="carousel-images">
+                        <img src="/Images/ways to cope when gluten free Tip1.jpg" alt="Ways to Cope Tip 1" class="carousel-image active">
+                        <img src="/Images/ways to cope when gluten free Tip2.jpg" alt="Ways to Cope Tip 2" class="carousel-image">
+                        <img src="/Images/ways to cope when gluten free Tip3.jpg" alt="Ways to Cope Tip 3" class="carousel-image">
+                        <img src="/Images/ways to cope when gluten free Tip4.jpg" alt="Ways to Cope Tip 4" class="carousel-image">
+                        <img src="/Images/ways to cope when gluten free Tip5.jpg" alt="Ways to Cope Tip 5" class="carousel-image">
+                        <img src="/Images/ways to cope when gluten free Tip6.jpg" alt="Ways to Cope Tip 6" class="carousel-image">
+                    </div>
+                    <button class="carousel-nav prev" onclick="changeSlide('cope', -1)">‹</button>
+                    <button class="carousel-nav next" onclick="changeSlide('cope', 1)">›</button>
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="currentSlide('cope', 1)"></span>
+                    <span class="dot" onclick="currentSlide('cope', 2)"></span>
+                    <span class="dot" onclick="currentSlide('cope', 3)"></span>
+                    <span class="dot" onclick="currentSlide('cope', 4)"></span>
+                    <span class="dot" onclick="currentSlide('cope', 5)"></span>
+                    <span class="dot" onclick="currentSlide('cope', 6)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Gallery Section -->
     <section id="gallery" class="py-16 px-6 container mx-auto">
@@ -1644,109 +1682,84 @@ Would you try this combo?
             }
         }
         
-        // Carousel functionality
-        const carousels = {};
+        // Simple Carousel JavaScript
+        let slideIndex = {
+            coeliac: 1,
+            gluten: 1,
+            travel: 1,
+            habits: 1,
+            disguise: 1,
+            cope: 1
+        };
         
-        function initCarousel(carouselId) {
-            carousels[carouselId] = {
-                currentSlide: 0,
-                totalSlides: document.querySelectorAll(`#${carouselId} .carousel-slide`).length
-            };
-            updateCarousel(carouselId);
+        function changeSlide(carouselName, n) {
+            showSlide(carouselName, slideIndex[carouselName] += n);
         }
         
-        function updateCarousel(carouselId) {
-            const track = document.querySelector(`#${carouselId} .carousel-track`);
-            const indicators = document.querySelectorAll(`#${carouselId.replace('-carousel', '-indicators')} .indicator`);
-            const currentSlide = carousels[carouselId].currentSlide;
+        function currentSlide(carouselName, n) {
+            showSlide(carouselName, slideIndex[carouselName] = n);
+        }
+        
+        function showSlide(carouselName, n) {
+            const carousel = document.querySelector(`[data-carousel="${carouselName}"]`);
+            if (!carousel) return;
             
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            const slides = carousel.querySelectorAll('.carousel-image');
+            const dots = carousel.querySelectorAll('.dot');
             
-            // Update indicators
-            indicators.forEach((indicator, index) => {
-                if (index === currentSlide) {
-                    indicator.style.backgroundColor = '#ec5ca0';
-                } else {
-                    indicator.style.backgroundColor = '#d1d5db';
-                }
-            });
-        }
-        
-        function nextSlide(carouselId) {
-            const carousel = carousels[carouselId];
-            carousel.currentSlide = (carousel.currentSlide + 1) % carousel.totalSlides;
-            updateCarousel(carouselId);
-        }
-        
-        function prevSlide(carouselId) {
-            const carousel = carousels[carouselId];
-            carousel.currentSlide = carousel.currentSlide === 0 ? carousel.totalSlides - 1 : carousel.currentSlide - 1;
-            updateCarousel(carouselId);
-        }
-        
-        function goToSlide(carouselId, slideIndex) {
-            carousels[carouselId].currentSlide = slideIndex;
-            updateCarousel(carouselId);
-        }
-        
-        // Auto-play functionality (optional)
-        function startAutoPlay(carouselId, interval = 5000) {
-            setInterval(() => {
-                nextSlide(carouselId);
-            }, interval);
-        }
-        
-        // Touch/swipe support for mobile
-        function addTouchSupport(carouselId) {
-            const carousel = document.getElementById(carouselId);
-            let startX = 0;
-            let endX = 0;
+            if (n > slides.length) { slideIndex[carouselName] = 1; }
+            if (n < 1) { slideIndex[carouselName] = slides.length; }
             
-            carousel.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-            });
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
             
-            carousel.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                handleSwipe(carouselId);
-            });
+            // Remove active class from all dots
+            dots.forEach(dot => dot.classList.remove('active'));
             
-            function handleSwipe(carouselId) {
-                const threshold = 50;
-                const diff = startX - endX;
-                
-                if (Math.abs(diff) > threshold) {
-                    if (diff > 0) {
-                        nextSlide(carouselId);
-                    } else {
-                        prevSlide(carouselId);
-                    }
-                }
+            // Show current slide and activate corresponding dot
+            if (slides[slideIndex[carouselName] - 1]) {
+                slides[slideIndex[carouselName] - 1].classList.add('active');
+            }
+            if (dots[slideIndex[carouselName] - 1]) {
+                dots[slideIndex[carouselName] - 1].classList.add('active');
             }
         }
         
-        // Initialize when DOM is loaded
+        // Touch support for mobile
+        function addTouchSupport() {
+            document.querySelectorAll('.simple-carousel').forEach(carousel => {
+                const carouselName = carousel.getAttribute('data-carousel');
+                let startX = 0;
+                let endX = 0;
+                
+                carousel.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                }, { passive: true });
+                
+                carousel.addEventListener('touchend', (e) => {
+                    endX = e.changedTouches[0].clientX;
+                    const diff = startX - endX;
+                    
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) {
+                            changeSlide(carouselName, 1);
+                        } else {
+                            changeSlide(carouselName, -1);
+                        }
+                    }
+                }, { passive: true });
+            });
+        }
+        
+        // Initialize carousels when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize carousels
-            initCarousel('coeliac-carousel');
-            initCarousel('gluten-carousel');
-            initCarousel('travel-carousel');
-            initCarousel('habits-carousel');
-            initCarousel('disguise-carousel');
-            initCarousel('cope-carousel');
+            // Initialize all carousels
+            Object.keys(slideIndex).forEach(carouselName => {
+                showSlide(carouselName, 1);
+            });
             
-            // Add touch support for mobile
-            addTouchSupport('coeliac-carousel');
-            addTouchSupport('gluten-carousel');
-            addTouchSupport('travel-carousel');
-            addTouchSupport('habits-carousel');
-            addTouchSupport('disguise-carousel');
-            addTouchSupport('cope-carousel');
-            
-            // Optional: Start auto-play (uncomment if desired)
-            // startAutoPlay('coeliac-carousel');
-            // startAutoPlay('gluten-carousel');
-            // startAutoPlay('travel-carousel');
+            // Add touch support
+            addTouchSupport();
             
             // Close lightbox when clicking outside the image
             window.addEventListener('click', function(event) {
